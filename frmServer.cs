@@ -1,4 +1,5 @@
 ﻿using JW_Library_Focuser;
+using log4net;
 using Microsoft.Owin.Hosting;
 using System;
 using System.Collections.Generic;
@@ -18,39 +19,84 @@ namespace KH_Video_Switcher
         private OBSWebsocketDotNet.OBSWebsocket obsWS;
         private IDisposable server;
         private frmClient client;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public frmServer()
         {
             InitializeComponent();
 
-            server = WebApp.Start<ServerStartup>("http://+:7004");
+            try
+            {
+                if (log.IsInfoEnabled) log.Info("Starting server on port 7004");
+                server = WebApp.Start<ServerStartup>("http://+:7004");
 
-            obsWS = new OBSWebsocketDotNet.OBSWebsocket();
-            obsWS.Connected += ObsWS_Connected;
+                obsWS = new OBSWebsocketDotNet.OBSWebsocket();
+                obsWS.Connected += ObsWS_Connected;
 
-            var top = Screen.PrimaryScreen.Bounds.Top;
-            var left = (int)(Screen.PrimaryScreen.Bounds.X + ((Screen.PrimaryScreen.Bounds.Width - this.Size.Width) / 2));
-            this.Location = new Point(left,top);           
+                var top = Screen.PrimaryScreen.Bounds.Top;
+                var left = (int)(Screen.PrimaryScreen.Bounds.X + ((Screen.PrimaryScreen.Bounds.Width - this.Size.Width) / 2));
+                this.Location = new Point(left, top);
+            }
+            catch (Exception exc)
+            {
+                log.Error(exc.Message,exc);
+                throw;
+            }
         }
 
         private void ObsWS_Connected(object sender, EventArgs e)
         {
-            BeginInvoke((MethodInvoker)(() =>
+            try
             {
-                var status = obsWS.GetVirtualCamStatus();
-                if (!status.IsActive)
-                    obsWS.StartVirtualCam();
-            }));
+
+                if (log.IsInfoEnabled) log.Info("OBS WS Connected");
+                BeginInvoke((MethodInvoker)(() =>
+                {
+                    try
+                    {
+                        var status = obsWS.GetVirtualCamStatus();
+                        if (!status.IsActive)
+                        {
+                            if (log.IsInfoEnabled) log.Info("OBS VirtualCam not started. Starting.");
+                            obsWS.StartVirtualCam();
+                        }
+                        else
+                        {
+                            if (log.IsInfoEnabled) log.Info("OBS VirtualCam already started.");
+                        }
+                    }
+                    catch (Exception exc)
+                    {
+                        log.Error(exc.Message, exc);
+                        throw;
+                    }
+                }));
+            }
+            catch (Exception exc)
+            {
+                log.Error(exc.Message, exc);
+                throw;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            obsWS.Connect(ConfigurationManager.AppSettings["OBSURL"], ConfigurationManager.AppSettings["OBSPassword"]);                        
+            try
+            {
+                if (log.IsInfoEnabled) log.Info($"Connectinng to OBS: {ConfigurationManager.AppSettings["OBSURL"]}");
+                obsWS.Connect(ConfigurationManager.AppSettings["OBSURL"], ConfigurationManager.AppSettings["OBSPassword"]);
 
-            JwLibHelper.BringToFront();
+                JwLibHelper.BringToFront();
 
-            //client = new frmClient();
-            //client.Show();
+                //client = new frmClient();
+                //client.Show();
+
+            }
+            catch (Exception exc)
+            {
+                log.Error(exc.Message, exc);
+                throw;
+            }
         }
 
         //private void sceneButtonClick(object sender, EventArgs e)
@@ -69,47 +115,85 @@ namespace KH_Video_Switcher
 
         private void btnJWLibrary_Click(object sender, EventArgs e)
         {
-            JwLibHelper.BringToFront();
-            ZoomLibHelper.Minimize();
-            OnlyMLibHelper.Minimize();
-            OBSController.IsCurrentlyZoom = false;
-            btnJWLibrary.BackColor = Color.DarkRed;
-            btnOnlyM.BackColor = Color.RoyalBlue;
-            btnZoom.BackColor = Color.RoyalBlue;
+            try
+            {
+                if (log.IsInfoEnabled) log.Info("JW library button clicked.");
+                JwLibHelper.BringToFront();
+                ZoomLibHelper.Minimize();
+                OnlyMLibHelper.Minimize();
+                OBSController.IsCurrentlyZoom = false;
+                btnJWLibrary.BackColor = Color.DarkRed;
+                btnOnlyM.BackColor = Color.RoyalBlue;
+                btnZoom.BackColor = Color.RoyalBlue;
+            }
+            catch (Exception exc)
+            {
+                log.Error(exc.Message, exc);
+                throw;
+            }
         }
 
         private void btnOnlyM_Click(object sender, EventArgs e)
         {
-            OnlyMLibHelper.BringToFront();
-            ZoomLibHelper.Minimize();
-            OBSController.IsCurrentlyZoom = false;
-            btnJWLibrary.BackColor = Color.RoyalBlue;
-            btnOnlyM.BackColor = Color.DarkRed;
-            btnZoom.BackColor = Color.RoyalBlue;
+            try
+            {
+                if (log.IsInfoEnabled) log.Info("OnlyM button clicked.");
+                OnlyMLibHelper.BringToFront();
+                ZoomLibHelper.Minimize();
+                OBSController.IsCurrentlyZoom = false;
+                btnJWLibrary.BackColor = Color.RoyalBlue;
+                btnOnlyM.BackColor = Color.DarkRed;
+                btnZoom.BackColor = Color.RoyalBlue;
+            }
+            catch (Exception exc)
+            {
+                log.Error(exc.Message, exc);
+                throw;
+            }
         }
 
         private void btnZoom_Click(object sender, EventArgs e)
         {
-            if (obsWS.IsConnected)
+            try
             {
-                var currentScene = obsWS.GetCurrentProgramScene();
-                var sceneItems = obsWS.GetSceneItemList(currentScene);
+                if (log.IsInfoEnabled) log.Info("Zoom button clicked.");
 
-                if (sceneItems.Any(m => m.SourceKind == "monitor_capture")) //if currently capturing screen, change to last camera, or first camera
+                if (obsWS.IsConnected)
                 {
-                    if (!string.IsNullOrWhiteSpace(OBSController.LastSelectedCamera))
-                        obsWS.SetCurrentProgramScene(OBSController.LastSelectedCamera);
-                    else
-                        obsWS.SetCurrentProgramScene(obsWS.GetSceneList().Scenes[0].Name);
-                }
-            }
+                    if (log.IsInfoEnabled) log.Info("Getting current OBS scene.");
+                    var currentScene = obsWS.GetCurrentProgramScene();
+                    if (log.IsInfoEnabled) log.Info($"Current OBS scene: {currentScene}");
 
-            OBSController.IsCurrentlyZoom = true;
-            ZoomLibHelper.BringToFront();
-            OnlyMLibHelper.Minimize();
-            btnJWLibrary.BackColor = Color.RoyalBlue;
-            btnOnlyM.BackColor = Color.RoyalBlue;
-            btnZoom.BackColor = Color.DarkRed;
+                    var sceneItems = obsWS.GetSceneItemList(currentScene);
+                                        
+                    if (sceneItems.Any(m => m.SourceKind == "monitor_capture")) //if currently capturing screen, change to last camera, or first camera
+                    {
+                        if (log.IsInfoEnabled) log.Info($"Current OBS scene has monitor_capture source");
+                        if (!string.IsNullOrWhiteSpace(OBSController.LastSelectedCamera))
+                        {
+                            if (log.IsInfoEnabled) log.Info($"Selecting last OBS camera scene: {OBSController.LastSelectedCamera}");
+                            obsWS.SetCurrentProgramScene(OBSController.LastSelectedCamera);
+                        }
+                        else
+                        {
+                            if (log.IsInfoEnabled) log.Info($"Selecting first scene in OBS.");
+                            obsWS.SetCurrentProgramScene(obsWS.GetSceneList().Scenes[0].Name);
+                        }
+                    }
+                }
+
+                OBSController.IsCurrentlyZoom = true;
+                ZoomLibHelper.BringToFront();
+                OnlyMLibHelper.Minimize();
+                btnJWLibrary.BackColor = Color.RoyalBlue;
+                btnOnlyM.BackColor = Color.RoyalBlue;
+                btnZoom.BackColor = Color.DarkRed;
+            }
+            catch (Exception exc)
+            {
+                log.Error(exc.Message, exc);
+                throw;
+            }
         }
     }
 }
