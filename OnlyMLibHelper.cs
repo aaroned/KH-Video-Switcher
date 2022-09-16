@@ -10,63 +10,91 @@ namespace JW_Library_Focuser
         private const string OnlyMLibProcessName = "OnlyM";        
         private const string OnlyMLibCaptionPrefix = "OnlyM Media Window";
 
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public static void BringToFront()
         {
+            if (log.IsInfoEnabled) log.Info("Attempting to bring OnlyM to front.");
             BringToFront(OnlyMLibProcessName);
         }
 
         public static void Minimize()
         {
+            if (log.IsInfoEnabled) log.Info("Attempting to minimize OnlyM.");
             Minimize(OnlyMLibProcessName);
         }
 
         private static bool BringToFront(string processName)
         {
-            var p = Process.GetProcessesByName(processName).FirstOrDefault();
-            if (p == null)
+            try
             {
-                return false;
-            }
+                var p = Process.GetProcessesByName(processName).FirstOrDefault();
+                if (p == null)
+                {
+                    if (log.IsInfoEnabled) log.Info($"Cannot find process: {processName}");
+                    return false;
+                }
 
-            var desktopWindow = LibHelperNativeMethods.GetDesktopWindow();
-            if (desktopWindow == IntPtr.Zero)
+                var desktopWindow = LibHelperNativeMethods.GetDesktopWindow();
+                if (desktopWindow == IntPtr.Zero)
+                {
+                    if (log.IsInfoEnabled) log.Info("Cannot find desktop window.");
+                    return false;
+                }
+
+                var mainWindow = LibHelperNativeMethods.FindWindowEx(desktopWindow, IntPtr.Zero, null, OnlyMLibCaptionPrefix);
+                if (mainWindow == IntPtr.Zero)
+                {
+                    if (log.IsInfoEnabled) log.Info($"Cannot find OnlyM window: {OnlyMLibCaptionPrefix}");
+                    return false;
+                }
+
+                LibHelperNativeMethods.ShowWindow(mainWindow, LibHelperNativeMethods.SW_MAXIMIZE);
+                LibHelperNativeMethods.SetForegroundWindow(mainWindow);
+                if (log.IsInfoEnabled) log.Info($"{processName} window brought to foreground.");
+                return true;
+            }
+            catch (Exception exc)
             {
-                return false;
+                log.Error(exc.Message, exc);
+                throw;
             }
-
-            var mainWindow = LibHelperNativeMethods.FindWindowEx(desktopWindow, IntPtr.Zero, null, OnlyMLibCaptionPrefix);
-            if (mainWindow == IntPtr.Zero)
-            {
-                return false;
-            }
-
-            LibHelperNativeMethods.ShowWindow(mainWindow, LibHelperNativeMethods.SW_MAXIMIZE);
-            LibHelperNativeMethods.SetForegroundWindow(mainWindow);
-            return true;            
         }
 
         private static bool Minimize(string processName)
         {
-            var p = Process.GetProcessesByName(processName).FirstOrDefault();
-            if (p == null)
+            try
             {
-                return false;
-            }
+                var p = Process.GetProcessesByName(processName).FirstOrDefault();
+                if (p == null)
+                {
+                    if (log.IsInfoEnabled) log.Info($"Cannot find process: {processName}");
+                    return false;
+                }
 
-            var desktopWindow = LibHelperNativeMethods.GetDesktopWindow();
-            if (desktopWindow == IntPtr.Zero)
+                var desktopWindow = LibHelperNativeMethods.GetDesktopWindow();
+                if (desktopWindow == IntPtr.Zero)
+                {
+                    if (log.IsInfoEnabled) log.Info("Cannot find desktop window.");
+                    return false;
+                }
+
+                var mainWindow = LibHelperNativeMethods.FindWindowEx(desktopWindow, IntPtr.Zero, null, OnlyMLibCaptionPrefix);
+                if (mainWindow == IntPtr.Zero)
+                {
+                    if (log.IsInfoEnabled) log.Info($"Cannot find OnlyM window: {OnlyMLibCaptionPrefix}");
+                    return false;
+                }
+
+                LibHelperNativeMethods.ShowWindow(mainWindow, LibHelperNativeMethods.SW_MINIMIZE);
+                if (log.IsInfoEnabled) log.Info($"{processName} window minimized.");
+                return true;
+            }
+            catch (Exception exc)
             {
-                return false;
+                log.Error(exc.Message, exc);
+                throw;
             }
-
-            var mainWindow = LibHelperNativeMethods.FindWindowEx(desktopWindow, IntPtr.Zero, null, OnlyMLibCaptionPrefix);
-            if (mainWindow == IntPtr.Zero)
-            {
-                return false;
-            }
-
-            LibHelperNativeMethods.ShowWindow(mainWindow, LibHelperNativeMethods.SW_MINIMIZE);
-            return true;
         }
     }
 }
