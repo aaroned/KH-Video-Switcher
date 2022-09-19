@@ -1,4 +1,5 @@
-﻿using Owin;
+﻿using Microsoft.Owin.Cors;
+using Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +13,8 @@ namespace KH_Video_Switcher
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseErrorPage();
-                        
-            // Configure Web API for self-host. 
-            HttpConfiguration config = new HttpConfiguration();
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
-
-            app.UseWebApi(config);
+            app.UseCors(CorsOptions.AllowAll);
+            app.MapSignalR();
         }
     }
 }
