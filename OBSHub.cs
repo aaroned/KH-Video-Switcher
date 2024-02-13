@@ -21,7 +21,7 @@ namespace KH_Video_Switcher
             try
             {
                 var obsWS = new OBSWebsocketDotNet.OBSWebsocket();
-                obsWS.Connect(ConfigurationManager.AppSettings["OBSURL"], ConfigurationManager.AppSettings["OBSPassword"]);
+                obsWS.ConnectAsync(ConfigurationManager.AppSettings["OBSURL"], ConfigurationManager.AppSettings["OBSPassword"]);
 
                 var waitCount = 0;
                 while (!obsWS.IsConnected)
@@ -51,7 +51,7 @@ namespace KH_Video_Switcher
                 if (log.IsInfoEnabled) log.Info("Client requesting server to set camera");
                 var obsWS = new OBSWebsocketDotNet.OBSWebsocket();
                 if (log.IsInfoEnabled) log.Info("Connecting to OBS");
-                obsWS.Connect(ConfigurationManager.AppSettings["OBSURL"], ConfigurationManager.AppSettings["OBSPassword"]);
+                obsWS.ConnectAsync(ConfigurationManager.AppSettings["OBSURL"], ConfigurationManager.AppSettings["OBSPassword"]);
 
                 var waitCount = 0;
                 while (!obsWS.IsConnected)

@@ -85,7 +85,7 @@ namespace KH_Video_Switcher
             try
             {
                 if (log.IsInfoEnabled) log.Info($"Connectinng to OBS: {ConfigurationManager.AppSettings["OBSURL"]}");
-                obsWS.Connect(ConfigurationManager.AppSettings["OBSURL"], ConfigurationManager.AppSettings["OBSPassword"]);
+                obsWS.ConnectAsync(ConfigurationManager.AppSettings["OBSURL"], ConfigurationManager.AppSettings["OBSPassword"]);
 
                 JwLibHelper.BringToFront();
 

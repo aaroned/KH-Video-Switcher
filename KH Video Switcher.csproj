@@ -115,9 +115,8 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\JW Library Focuser\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="obs-websocket-dotnet, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\obs-websocket-dotnet\obs-websocket-dotnet-257e7b48e1c365fcf2ea3de9f156ded2bf8f5247\obs-websocket-dotnet\bin\Debug\netstandard2.0\obs-websocket-dotnet.dll</HintPath>
+    <Reference Include="obs-websocket-dotnet, Version=5.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\obs-websocket-dotnet.5.0.0.3\lib\netstandard2.0\obs-websocket-dotnet.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\JW Library Focuser\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
