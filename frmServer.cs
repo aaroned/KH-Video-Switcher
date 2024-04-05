@@ -1,5 +1,6 @@
 ﻿using JW_Library_Focuser;
 using log4net;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Hosting;
 using System;
 using System.Collections.Generic;
@@ -84,7 +85,7 @@ namespace KH_Video_Switcher
             try
             {
                 if (log.IsInfoEnabled) log.Info($"Connectinng to OBS: {ConfigurationManager.AppSettings["OBSURL"]}");
-                obsWS.Connect(ConfigurationManager.AppSettings["OBSURL"], ConfigurationManager.AppSettings["OBSPassword"]);
+                obsWS.ConnectAsync(ConfigurationManager.AppSettings["OBSURL"], ConfigurationManager.AppSettings["OBSPassword"]);
 
                 JwLibHelper.BringToFront();
 
@@ -97,21 +98,7 @@ namespace KH_Video_Switcher
                 log.Error(exc.Message, exc);
                 throw;
             }
-        }
-
-        //private void sceneButtonClick(object sender, EventArgs e)
-        //{
-        //    this.TopLevel = true;
-        //    this.TopMost = true;
-
-        //    var scene = ((Button)sender).Text;
-        //    obsWS.SetCurrentProgramScene(scene);
-
-        //    foreach (Button sceneButton in tableLayoutPanel1.Controls)
-        //    {
-        //        sceneButton.BackColor = (sceneButton == sender ? Color.DarkRed : Color.RoyalBlue);
-        //    }        
-        //}
+        }        
 
         private void btnJWLibrary_Click(object sender, EventArgs e)
         {
@@ -121,7 +108,7 @@ namespace KH_Video_Switcher
                 JwLibHelper.BringToFront();
                 ZoomLibHelper.Minimize();
                 OnlyMLibHelper.Minimize();
-                OBSController.IsCurrentlyZoom = false;
+                OBSHub.IsCurrentlyZoom = false;                
                 btnJWLibrary.BackColor = Color.DarkRed;
                 btnOnlyM.BackColor = Color.RoyalBlue;
                 btnZoom.BackColor = Color.RoyalBlue;
@@ -140,7 +127,7 @@ namespace KH_Video_Switcher
                 if (log.IsInfoEnabled) log.Info("OnlyM button clicked.");
                 OnlyMLibHelper.BringToFront();
                 ZoomLibHelper.Minimize();
-                OBSController.IsCurrentlyZoom = false;
+                OBSHub.IsCurrentlyZoom = false;
                 btnJWLibrary.BackColor = Color.RoyalBlue;
                 btnOnlyM.BackColor = Color.DarkRed;
                 btnZoom.BackColor = Color.RoyalBlue;
@@ -169,20 +156,25 @@ namespace KH_Video_Switcher
                     if (sceneItems.Any(m => m.SourceKind == "monitor_capture")) //if currently capturing screen, change to last camera, or first camera
                     {
                         if (log.IsInfoEnabled) log.Info($"Current OBS scene has monitor_capture source");
-                        if (!string.IsNullOrWhiteSpace(OBSController.LastSelectedCamera))
+                        if (!string.IsNullOrWhiteSpace(OBSHub.LastSelectedCamera))
                         {
-                            if (log.IsInfoEnabled) log.Info($"Selecting last OBS camera scene: {OBSController.LastSelectedCamera}");
-                            obsWS.SetCurrentProgramScene(OBSController.LastSelectedCamera);
+                            if (log.IsInfoEnabled) log.Info($"Selecting last OBS camera scene: {OBSHub.LastSelectedCamera}");
+                            obsWS.SetCurrentProgramScene(OBSHub.LastSelectedCamera);
                         }
                         else
                         {
                             if (log.IsInfoEnabled) log.Info($"Selecting first scene in OBS.");
                             obsWS.SetCurrentProgramScene(obsWS.GetSceneList().Scenes[0].Name);
                         }
+
+                        var result = obsWS.GetSceneList();
+
+                        var hub = GlobalHost.ConnectionManager.GetHubContext("OBSHub");
+                        hub.Clients.All.ReceiveScenes(result);
                     }
                 }
 
-                OBSController.IsCurrentlyZoom = true;
+                OBSHub.IsCurrentlyZoom = true;
                 ZoomLibHelper.BringToFront();
                 OnlyMLibHelper.Minimize();
                 btnJWLibrary.BackColor = Color.RoyalBlue;
