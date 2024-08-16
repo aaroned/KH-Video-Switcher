@@ -7,7 +7,7 @@
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{D9C82CF4-82FB-4203-90A1-0E7215BBC5C9}
+AppId={D9C82CF4-82FB-4203-90A1-0E7215BBC5C9}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -17,7 +17,7 @@ DisableProgramGroupPage=yes
 ;PrivilegesRequired=lowest
 OutputBaseFilename={#MyAppName} {#MyAppVersion}
 OutputDir= Output
-SetupIconFile=\\Mac\Home\Downloads\KH-Video-Switcher-master\Icon.ico
+SetupIconFile= "icon\Icon.ico"
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -29,11 +29,11 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 
 [Files]
-Source: "\\Mac\Home\Desktop\KH.Switcher.2.0.0.1\Media\*"; DestDir: "{app}\KH Switcher Media"; Components:khMedia; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "\\Mac\Home\Desktop\KH.Switcher.2.0.0.1\Zoom\*"; DestDir: "{app}\KH Switcher Zoom"; Components: khzoom; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "\\Mac\Home\Desktop\KH.Switcher.2.0.0.1\Common\*"; DestDir: "{app}\KH Switcher Media"; Components: khMedia; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "\\Mac\Home\Desktop\KH.Switcher.2.0.0.1\Common\*"; DestDir: "{app}\KH Switcher Zoom"; Components: khZoom; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "\\Mac\Home\Desktop\KH.Switcher.2.0.0.1\config.bat"; DestDir: "{app}"; Flags: deleteafterinstall;
+Source: "media\*"; DestDir: "{app}\KH Switcher Media"; Components:khMedia; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "zoom\*"; DestDir: "{app}\KH Switcher Zoom"; Components: khzoom; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "common\*"; DestDir: "{app}\KH Switcher Media"; Components: khMedia; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "common\*"; DestDir: "{app}\KH Switcher Zoom"; Components: khZoom; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "config\config.bat"; DestDir: "{app}"; Flags: deleteafterinstall;
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Components]
