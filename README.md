@@ -1,6 +1,6 @@
 # KH Switcher
 
-![KH Switcher Hero](Support/Readme%20Images/KH%20Switcher%20Hero.jpeg)
+![KH Switcher Hero](Support/Readme%20Images/KHSwitcherHero.jpeg)
 
 KH Switcher is designed to simplify the management of hybrid meetings, allowing for easy control of displays, media, and camera shots. Its user-friendly interface and advanced features can improve the meeting quality while reducing the necessary skills required to operate it. It removes the need for using the Share Screen function of Zoom and provides one click operation of PTZ cameras. 
 
