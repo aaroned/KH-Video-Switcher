@@ -29,8 +29,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 
 [Files]
-Source: "media\*"; DestDir: "{app}\KH Switcher Media"; Components:khMedia; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "zoom\*"; DestDir: "{app}\KH Switcher Zoom"; Components: khzoom; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "media\*"; DestDir: "{app}\KH Switcher Media"; Components:khMedia; Flags: onlyifdoesntexist recursesubdirs createallsubdirs
+Source: "zoom\*"; DestDir: "{app}\KH Switcher Zoom"; Components: khzoom; Flags: onlyifdoesntexist recursesubdirs createallsubdirs
 Source: "common\*"; DestDir: "{app}\KH Switcher Media"; Components: khMedia; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "common\*"; DestDir: "{app}\KH Switcher Zoom"; Components: khZoom; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "config\config.bat"; DestDir: "{app}"; Flags: deleteafterinstall;
