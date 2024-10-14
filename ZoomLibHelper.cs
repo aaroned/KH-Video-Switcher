@@ -7,9 +7,9 @@ namespace JW_Library_Focuser
 {
     internal static class ZoomLibHelper
     {
-        private const string ZoomLibProcessName = "Zoom";        
-        private const string MainWindowClassName = "ZPContentViewWndClass";
-        private const string ZoomLibCaptionPrefix = "Zoom";
+        private const string ZoomLibProcessName = "Zoom";
+        private const string MainWindowClassName = "ConfMultiTabContentWndClass";
+        private const string ZoomLibCaptionPrefix = "Zoom Workplace";
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -56,6 +56,7 @@ namespace JW_Library_Focuser
 
                     var sb = new StringBuilder(256);
                     LibHelperNativeMethods.GetWindowText(mainWindow, sb, 256);
+                    log.Info(sb.ToString());
                     if (sb.ToString().Equals(ZoomLibCaptionPrefix))
                     {
                         LibHelperNativeMethods.ShowWindow(mainWindow, LibHelperNativeMethods.SW_MAXIMIZE);
