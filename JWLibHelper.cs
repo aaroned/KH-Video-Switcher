@@ -11,7 +11,7 @@ namespace JW_Library_Focuser
         private const string JwLibProcessName = "JWLibrary";
         private const string JwLibSignLanguageProcessName = "JWLibrary.Forms.UWP";
         private const string MainWindowClassName = "ApplicationFrameWindow";
-        private const string JwLibCaptionPrefix = "JW Library";
+        private const string JwLibCaptionPrefix = "Second";
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -102,9 +102,10 @@ namespace JW_Library_Focuser
 
                     var sb = new StringBuilder(256);
                     LibHelperNativeMethods.GetWindowText(mainWindow, sb, 256);
-                    if (sb.ToString().StartsWith(JwLibCaptionPrefix))
+                    var caption = sb.ToString();                    
+                    if (caption.StartsWith(JwLibCaptionPrefix))
                     {
-                        if (log.IsInfoEnabled) log.Info($"{processName} window brought to foreground.");
+                        if (log.IsInfoEnabled) log.Info($"{processName} window (caption:{caption}) brought to foreground.");
                         LibHelperNativeMethods.SetForegroundWindow(mainWindow);
                         found = true;
                     }
