@@ -16,7 +16,7 @@ DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputBaseFilename={#MyAppName} {#MyAppVersion}
-OutputDir= Output
+OutputDir= ..\bin\Release\{#MyAppVersion}
 SetupIconFile= "..\Icon.ico"
 Compression=lzma
 SolidCompression=yes
