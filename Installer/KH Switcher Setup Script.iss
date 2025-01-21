@@ -17,7 +17,7 @@ DisableProgramGroupPage=yes
 ;PrivilegesRequired=lowest
 OutputBaseFilename={#MyAppName} {#MyAppVersion}
 OutputDir= Output
-SetupIconFile= "icon\Icon.ico"
+SetupIconFile= "..\Icon.ico"
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -29,11 +29,11 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 
 [Files]
-Source: "media\*"; DestDir: "{app}\KH Switcher Media"; Components:khMedia; Flags: onlyifdoesntexist recursesubdirs createallsubdirs
-Source: "zoom\*"; DestDir: "{app}\KH Switcher Zoom"; Components: khzoom; Flags: onlyifdoesntexist recursesubdirs createallsubdirs
-Source: "common\*"; DestDir: "{app}\KH Switcher Media"; Components: khMedia; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "common\*"; DestDir: "{app}\KH Switcher Zoom"; Components: khZoom; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "config\config.bat"; DestDir: "{app}"; Flags: deleteafterinstall;
+Source: "..\bin\release\media\*"; DestDir: "{app}\KH Switcher Media"; Components:khMedia; Flags: onlyifdoesntexist recursesubdirs createallsubdirs
+Source: "..\bin\Release\zoom\*"; DestDir: "{app}\KH Switcher Zoom"; Components: khzoom; Flags: onlyifdoesntexist recursesubdirs createallsubdirs
+Source: "..\bin\Release\common\*"; DestDir: "{app}\KH Switcher Media"; Components: khMedia; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\bin\Release\common\*"; DestDir: "{app}\KH Switcher Zoom"; Components: khZoom; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\bin\Release\config.bat"; DestDir: "{app}"; Flags: deleteafterinstall;
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Components]
