@@ -11,7 +11,7 @@ KH Switcher is designed to simplify the management of hybrid meetings, allowing 
 
 ## How to install?
 
-To get started with KH Video Switcher please download the latest release from the [releases](https://github.com/aaroned/KH-Video-Switcher/releases/tag/Release) page. The installer will guide you through the inital setup and will automatically configure your local network. 
+To get started with KH Video Switcher please download the latest release from the [releases](https://github.com/aaroned/KH-Video-Switcher/releases) page. The installer will guide you through the inital setup and will automatically configure your local network. 
 
 To configure the program the program go to the installation location (By default this is C:/Program Files/KH Switcher) to edit the KHSwitcherConfig.exe.config in a text editor such as Notepad. 
 
