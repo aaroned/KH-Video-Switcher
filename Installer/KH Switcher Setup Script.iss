@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "KH Switcher"
-#define MyAppVersion "2.0.0.3"
+#define MyAppVersion "2.0.0.4"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -29,7 +29,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 
 [Files]
-Source: "..\bin\release\media\*"; DestDir: "{app}\KH Switcher Media"; Components:khMedia; Flags: onlyifdoesntexist recursesubdirs createallsubdirs
+Source: "..\bin\Release\media\*"; DestDir: "{app}\KH Switcher Media"; Components:khMedia; Flags: onlyifdoesntexist recursesubdirs createallsubdirs
 Source: "..\bin\Release\zoom\*"; DestDir: "{app}\KH Switcher Zoom"; Components: khzoom; Flags: onlyifdoesntexist recursesubdirs createallsubdirs
 Source: "..\bin\Release\common\*"; DestDir: "{app}\KH Switcher Media"; Components: khMedia; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\bin\Release\common\*"; DestDir: "{app}\KH Switcher Zoom"; Components: khZoom; Flags: ignoreversion recursesubdirs createallsubdirs
