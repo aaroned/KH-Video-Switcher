@@ -11,7 +11,7 @@ namespace JW_Library_Focuser
         private const string JwLibProcessName = "JWLibrary";
         private const string JwLibSignLanguageProcessName = "JWLibrary.Forms.UWP";
         private const string MainWindowClassName = "ApplicationFrameWindow";
-        private const string JwLibCaptionPrefix = "Second";
+        private const string JwLibCaptionPrefix = "JW Library";
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
