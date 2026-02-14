@@ -26,6 +26,8 @@ namespace KH_Video_Switcher
             AutoUpdater.Mandatory = false;  // Don't force update
             AutoUpdater.ReportErrors = true;
             AutoUpdater.Icon = Resources.Icon;  // Set your app icon for the update dialog
+            AutoUpdater.TopMost = true;  // Keep update window on top of all others
+
 
             // Check for updates on startup
             AutoUpdater.Start("https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/add-autoupdater/update.xml");
