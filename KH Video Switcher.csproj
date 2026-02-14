@@ -251,7 +251,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Icon.bmp" />
     <Content Include="Icon.ico" />
+    <None Include="Resources\Icon.bmp" />
     <None Include="images\Zoom.png" />
     <None Include="images\OnlyM.png" />
     <None Include="images\JWLibrary.png" />
