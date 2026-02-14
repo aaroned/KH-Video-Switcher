@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AutoUpdaterDotNET;
 
 namespace KH_Video_Switcher
 {
@@ -17,6 +18,15 @@ namespace KH_Video_Switcher
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            // Customize the update notification
+            AutoUpdater.ShowSkipButton = true;  // Let users skip this version
+            AutoUpdater.ShowRemindLaterButton = true;  // Remind me later option
+            AutoUpdater.Mandatory = false;  // Don't force update
+
+            // Check for updates on startup
+            AutoUpdater.Start("https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/main/update.xml");
+
 
             var clientModeSetting = ConfigurationManager.AppSettings["ClientMode"];
             var isClientMode = (clientModeSetting != null && clientModeSetting.ToLower() == "true");
