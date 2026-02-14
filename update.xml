@@ -2,13 +2,11 @@
 <item>
 	<version>2.0.0.5</version>
 	<url>https://github.com/aaroned/KH-Video-Switcher/releases/download/v2.0.0.4/KH.Switcher.2.0.0.4.exe</url>
-	<changelog>
-		<![CDATA[
+	<changelog><![CDATA[
     What's New in v2.0.0.5:
     - Added new feature X
     - Fixed bug with Y
     - Improved performance for Z
-    ]]>
-	</changelog>
+    ]]></changelog>
 	<mandatory>false</mandatory>
 </item>
