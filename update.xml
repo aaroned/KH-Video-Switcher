@@ -2,11 +2,6 @@
 <item>
 	<version>2.0.0.5</version>
 	<url>https://github.com/aaroned/KH-Video-Switcher/releases/download/v2.0.0.4/KH.Switcher.2.0.0.4.exe</url>
-	<changelog>Version 2.0.0.5
-- Added this feature
-- Also did this
-
-Fixes:
-- Fixed this bug</changelog>
+	<changelog>https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/add-appupdater/changelog.txt</changelog>
 	<mandatory>false</mandatory>
 </item>
