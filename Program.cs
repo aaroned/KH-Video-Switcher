@@ -23,6 +23,9 @@ namespace KH_Video_Switcher
             AutoUpdater.ShowSkipButton = true;  // Let users skip this version
             AutoUpdater.ShowRemindLaterButton = true;  // Remind me later option
             AutoUpdater.Mandatory = false;  // Don't force update
+            AutoUpdater.ReportErrors = true;
+            AutoUpdater.DownloadPath = Environment.CurrentDirectory;
+            AutoUpdater.RunUpdateAsAdmin = false;
 
             // Check for updates on startup
             AutoUpdater.Start("https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/add-autoupdater/update.xml");
