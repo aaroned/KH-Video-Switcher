@@ -10,6 +10,8 @@ namespace JW_Library_Focuser
         internal const int SW_MINIMIZE = 6;
         internal const int SW_RESTORE = 9;
 
+        public const int MONITOR_DEFAULTTONEAREST = 2;
+
         [DllImport("user32.dll", SetLastError = false)]
         public static extern IntPtr GetDesktopWindow();
 
@@ -37,5 +39,23 @@ namespace JW_Library_Focuser
 
         [DllImport("User32.dll")]
         public static extern void GetWindowText(IntPtr handle, StringBuilder s, int nMaxCount);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr MonitorFromWindow(IntPtr hwnd, int dwFlags);
+
+        [DllImport("user32.dll")]
+        public static extern bool EnumDisplayMonitors(IntPtr hdc, IntPtr lprcClip, MonitorEnumDelegate lpfnEnum, IntPtr dwData);
+
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
+
+        public delegate bool MonitorEnumDelegate(IntPtr hMonitor, IntPtr hdcMonitor, ref RECT lprcMonitor, IntPtr dwData);
     }
 }

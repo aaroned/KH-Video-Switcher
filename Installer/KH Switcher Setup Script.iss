@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "KH Switcher"
-#define MyAppVersion "2.0.0.4"
+#define MyAppVersion GetFileVersion("..\bin\Release\KH Switcher.exe")
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -17,7 +17,8 @@ DisableProgramGroupPage=yes
 ;PrivilegesRequired=lowest
 OutputBaseFilename={#MyAppName} {#MyAppVersion}
 OutputDir= ..\bin\Release\{#MyAppVersion}
-SetupIconFile= "..\Icon.ico"
+SetupIconFile= ..\Icon.ico
+UninstallDisplayIcon={app}\KH Switcher Media\KH Switcher.exe
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
