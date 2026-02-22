@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "KH Switcher"
-#define MyAppVersion GetFileVersion("..\bin\Release\KH Switcher.exe")
+#define MyAppVersion GetFileVersion("..\bin\Release\common\KH Switcher.exe")
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
