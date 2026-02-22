@@ -19,7 +19,7 @@ namespace KH_Video_Switcher
     {
         private OBSWebsocketDotNet.OBSWebsocket obsWS;
         private IDisposable server;
-        private frmClient client;
+        //private frmClient client;     // This is no longer used. Remove at a later date if we don't need it.
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public frmServer()
