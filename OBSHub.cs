@@ -15,7 +15,20 @@ namespace KH_Video_Switcher
         public static string LastSelectedCamera;
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+        public static EnrichedSceneList BuildEnrichedSceneList(OBSWebsocketDotNet.OBSWebsocket obsWS)
+        {
+            var result = obsWS.GetSceneList();
+            return new EnrichedSceneList
+            {
+                CurrentProgramSceneName = result.CurrentProgramSceneName,
+                Scenes = result.Scenes.Select(scene => new EnrichedScene
+                {
+                    Name = scene.Name,
+                    IsMonitorCapture = obsWS.GetSceneItemList(scene.Name)
+                                            .Any(m => m.SourceKind == "monitor_capture")
+                }).ToList()
+            };
+        }
         public async void GetScenes() 
         {
             try
@@ -32,10 +45,10 @@ namespace KH_Video_Switcher
                         return;
                 }
 
-                var result = obsWS.GetSceneList();
+                var result = BuildEnrichedSceneList(obsWS);
                 obsWS.Disconnect();
 
-                Clients.Caller.ReceiveScenes(result);                
+                Clients.Caller.ReceiveScenes(result);
             }
             catch (Exception exc)
             {
@@ -80,7 +93,7 @@ namespace KH_Video_Switcher
                     LastSelectedCamera = name;
                 }
 
-                var result = obsWS.GetSceneList();
+                var result = BuildEnrichedSceneList(obsWS);
                 obsWS.Disconnect();
 
                 Clients.All.ReceiveScenes(result);
@@ -91,5 +104,16 @@ namespace KH_Video_Switcher
                 throw;
             }
         }
+    }
+    public class EnrichedScene
+    {
+        public string Name { get; set; }
+        public bool IsMonitorCapture { get; set; }
+    }
+
+    public class EnrichedSceneList
+    {
+        public string CurrentProgramSceneName { get; set; }
+        public List<EnrichedScene> Scenes { get; set; }
     }
 }
