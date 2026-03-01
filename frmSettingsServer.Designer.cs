@@ -48,6 +48,7 @@
             this.tabOBS = new System.Windows.Forms.TabPage();
             this.groupBoxOBS = new System.Windows.Forms.GroupBox();
             this.btnTestOBS = new System.Windows.Forms.Button();
+            this.picOBSStatus = new System.Windows.Forms.PictureBox();
             this.labelOBSStatus = new System.Windows.Forms.Label();
             this.labelStatusLight = new System.Windows.Forms.Label();
             this.btnShowOBSPASS = new System.Windows.Forms.Button();
@@ -56,12 +57,11 @@
             this.textBoxOBSURL = new System.Windows.Forms.TextBox();
             this.labelOBSURL = new System.Windows.Forms.Label();
             this.tabUpdate = new System.Windows.Forms.TabPage();
+            this.btnGithub = new System.Windows.Forms.Button();
             this.labelVersion = new System.Windows.Forms.Label();
             this.checkBoxUpdateStart = new System.Windows.Forms.CheckBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.picOBSStatus = new System.Windows.Forms.PictureBox();
-            this.btnGithub = new System.Windows.Forms.Button();
             this.btnUpdates = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -69,8 +69,8 @@
             this.groupBoxDisplay.SuspendLayout();
             this.tabOBS.SuspendLayout();
             this.groupBoxOBS.SuspendLayout();
-            this.tabUpdate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picOBSStatus)).BeginInit();
+            this.tabUpdate.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -168,6 +168,7 @@
             this.checkBoxTopMost.TabIndex = 6;
             this.checkBoxTopMost.Text = "Keep KH Switcher on top of other apps";
             this.checkBoxTopMost.UseVisualStyleBackColor = true;
+            this.checkBoxTopMost.CheckedChanged += new System.EventHandler(this.checkBoxTopMost_CheckedChanged);
             // 
             // labelTopMost
             // 
@@ -293,6 +294,17 @@
             this.btnTestOBS.UseVisualStyleBackColor = true;
             this.btnTestOBS.Click += new System.EventHandler(this.btnTestOBS_Click);
             // 
+            // picOBSStatus
+            // 
+            this.picOBSStatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picOBSStatus.Image = global::KH_Video_Switcher.Properties.Resources.off_status_8px;
+            this.picOBSStatus.Location = new System.Drawing.Point(128, 159);
+            this.picOBSStatus.Name = "picOBSStatus";
+            this.picOBSStatus.Size = new System.Drawing.Size(8, 8);
+            this.picOBSStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picOBSStatus.TabIndex = 8;
+            this.picOBSStatus.TabStop = false;
+            // 
             // labelOBSStatus
             // 
             this.labelOBSStatus.AutoSize = true;
@@ -370,6 +382,16 @@
             this.tabUpdate.Text = "Update";
             this.tabUpdate.UseVisualStyleBackColor = true;
             // 
+            // btnGithub
+            // 
+            this.btnGithub.Image = global::KH_Video_Switcher.Properties.Resources.GitHub_16;
+            this.btnGithub.Location = new System.Drawing.Point(160, 141);
+            this.btnGithub.Name = "btnGithub";
+            this.btnGithub.Size = new System.Drawing.Size(32, 32);
+            this.btnGithub.TabIndex = 3;
+            this.btnGithub.UseVisualStyleBackColor = true;
+            this.btnGithub.Click += new System.EventHandler(this.btnGithub_Click);
+            // 
             // labelVersion
             // 
             this.labelVersion.AutoSize = true;
@@ -393,37 +415,6 @@
             this.checkBoxUpdateStart.UseVisualStyleBackColor = true;
             this.checkBoxUpdateStart.CheckedChanged += new System.EventHandler(this.checkBoxUpdateStart_CheckedChanged);
             // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(297, 376);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 1;
-            this.btnSave.Text = "&Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // picOBSStatus
-            // 
-            this.picOBSStatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picOBSStatus.Image = global::KH_Video_Switcher.Properties.Resources.off_status_8px;
-            this.picOBSStatus.Location = new System.Drawing.Point(128, 159);
-            this.picOBSStatus.Name = "picOBSStatus";
-            this.picOBSStatus.Size = new System.Drawing.Size(8, 8);
-            this.picOBSStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picOBSStatus.TabIndex = 8;
-            this.picOBSStatus.TabStop = false;
-            // 
-            // btnGithub
-            // 
-            this.btnGithub.Image = global::KH_Video_Switcher.Properties.Resources.GitHub_16;
-            this.btnGithub.Location = new System.Drawing.Point(160, 141);
-            this.btnGithub.Name = "btnGithub";
-            this.btnGithub.Size = new System.Drawing.Size(32, 32);
-            this.btnGithub.TabIndex = 3;
-            this.btnGithub.UseVisualStyleBackColor = true;
-            this.btnGithub.Click += new System.EventHandler(this.btnGithub_Click);
-            // 
             // btnUpdates
             // 
             this.btnUpdates.Image = global::KH_Video_Switcher.Properties.Resources.refresh_square;
@@ -436,6 +427,16 @@
             this.btnUpdates.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnUpdates.UseVisualStyleBackColor = true;
             this.btnUpdates.Click += new System.EventHandler(this.btnUpdates_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(297, 376);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 1;
+            this.btnSave.Text = "&Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // frmSettingsServer
             // 
@@ -466,9 +467,9 @@
             this.tabOBS.ResumeLayout(false);
             this.groupBoxOBS.ResumeLayout(false);
             this.groupBoxOBS.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picOBSStatus)).EndInit();
             this.tabUpdate.ResumeLayout(false);
             this.tabUpdate.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picOBSStatus)).EndInit();
             this.ResumeLayout(false);
 
         }

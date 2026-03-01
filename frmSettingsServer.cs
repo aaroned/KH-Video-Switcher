@@ -40,6 +40,8 @@ namespace KH_Video_Switcher
 
             textBoxOBSURL.Text = _originalOBSURL;
             textBoxOBSPASS.Text = _originalOBSPassword;
+
+            checkBoxTopMost.Checked = Properties.Settings.Default.TopMost;
         }
 
         public void UpdateOBSStatusDisplay(bool connected)
@@ -129,7 +131,7 @@ namespace KH_Video_Switcher
         {
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "Settings files (*.xml)|*.xml";
-            dialog.FileName = $"KHSwitcher_Media_Settings_{DateTime.Now:yyy-MM-dd}.xml";
+            dialog.FileName = $"KHSwitcher_Media_Settings_{DateTime.Now:yyyy-MM-dd}.xml";
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
@@ -140,7 +142,8 @@ namespace KH_Video_Switcher
                         OBSURL = Properties.Settings.Default.OBSURL,
                         OBSPassword = Properties.Settings.Default.OBSPassword,
                         CheckForUpdatesOnStartup = Properties.Settings.Default.CheckForUpdatesOnStartup,
-                        onlyMView = Properties.Settings.Default.onlyMView
+                        onlyMView = Properties.Settings.Default.onlyMView,
+                        TopMost = Properties.Settings.Default.TopMost
                     };
 
                     var serializer = new System.Xml.Serialization.XmlSerializer(typeof(AppSettings));
@@ -173,6 +176,7 @@ namespace KH_Video_Switcher
                         Properties.Settings.Default.OBSPassword = values.OBSPassword;
                         Properties.Settings.Default.CheckForUpdatesOnStartup = values.CheckForUpdatesOnStartup;
                         Properties.Settings.Default.onlyMView = values.onlyMView;
+                        Properties.Settings.Default.TopMost = values.TopMost;
                         Properties.Settings.Default.Save();
                     }
 
@@ -180,6 +184,7 @@ namespace KH_Video_Switcher
                     checkBoxOnlyMView.Checked = Properties.Settings.Default.onlyMView;
                     textBoxOBSURL.Text = Properties.Settings.Default.OBSURL;
                     textBoxOBSPASS.Text = Properties.Settings.Default.OBSPassword;
+                    checkBoxTopMost.Checked = Properties.Settings.Default.TopMost;
 
                     MessageBox.Show("Settings imported successfully! Click Save to apply.", "Import", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -232,6 +237,11 @@ namespace KH_Video_Switcher
                 btnTestOBS.Text = "Test Connection";
             }
         }
+
+        private void checkBoxTopMost_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.TopMost = checkBoxTopMost.Checked;
+        }
     }
     public class AppSettings
     {
@@ -239,5 +249,6 @@ namespace KH_Video_Switcher
         public string OBSPassword { get; set; }
         public bool CheckForUpdatesOnStartup { get; set; }
         public bool onlyMView { get; set; }
+        public bool TopMost { get; set; }
     }
 }
