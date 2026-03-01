@@ -43,6 +43,7 @@
             this.menuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemLog = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemWiki = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.serverStatusMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
@@ -76,6 +77,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
+            this.menuStrip1.ShowItemToolTips = true;
             this.menuStrip1.Size = new System.Drawing.Size(468, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
@@ -100,6 +102,7 @@
             // 
             this.menuItemHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuItemLog,
+            this.menuItemWiki,
             this.menuItemAbout});
             this.menuItemHelp.Name = "menuItemHelp";
             this.menuItemHelp.Size = new System.Drawing.Size(44, 22);
@@ -166,6 +169,7 @@
             this.menuItemUpdate.Name = "menuItemUpdate";
             this.menuItemUpdate.Size = new System.Drawing.Size(180, 22);
             this.menuItemUpdate.Text = "Check for Updates...";
+            this.menuItemUpdate.Click += new System.EventHandler(this.menuItemUpdate_Click);
             // 
             // menuItemSettings
             // 
@@ -191,17 +195,27 @@
             this.menuItemLog.Image = global::KH_Video_Switcher.Properties.Resources.document_text;
             this.menuItemLog.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.menuItemLog.Name = "menuItemLog";
-            this.menuItemLog.Size = new System.Drawing.Size(122, 22);
+            this.menuItemLog.Size = new System.Drawing.Size(180, 22);
             this.menuItemLog.Text = "View Log";
             this.menuItemLog.Click += new System.EventHandler(this.menuItemLog_Click);
+            // 
+            // menuItemWiki
+            // 
+            this.menuItemWiki.Image = global::KH_Video_Switcher.Properties.Resources.question_circle_16;
+            this.menuItemWiki.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.menuItemWiki.Name = "menuItemWiki";
+            this.menuItemWiki.Size = new System.Drawing.Size(180, 22);
+            this.menuItemWiki.Text = "Online Wiki";
+            this.menuItemWiki.Click += new System.EventHandler(this.menuItemWiki_Click);
             // 
             // menuItemAbout
             // 
             this.menuItemAbout.Image = global::KH_Video_Switcher.Properties.Resources.info_circle;
             this.menuItemAbout.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.menuItemAbout.Name = "menuItemAbout";
-            this.menuItemAbout.Size = new System.Drawing.Size(122, 22);
+            this.menuItemAbout.Size = new System.Drawing.Size(180, 22);
             this.menuItemAbout.Text = "About";
+            this.menuItemAbout.Click += new System.EventHandler(this.menuItemAbout_Click);
             // 
             // serverStatusMenu
             // 
@@ -215,8 +229,6 @@
             this.serverStatusMenu.Size = new System.Drawing.Size(30, 22);
             this.serverStatusMenu.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.serverStatusMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.serverStatusMenu.MouseEnter += new System.EventHandler(this.serverStatusMenu_MouseEnter);
-            this.serverStatusMenu.MouseLeave += new System.EventHandler(this.serverStatusMenu_MouseLeave);
             // 
             // frmServer
             // 
@@ -259,6 +271,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemAbout;
         private System.Windows.Forms.ToolStripMenuItem serverStatusMenu;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolStripMenuItem menuItemWiki;
     }
 }
 

@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNet.SignalR.Client;
+﻿using AutoUpdaterDotNET;
+using log4net;
+using Microsoft.AspNet.SignalR.Client;
 using OBSWebsocketDotNet.Types;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
@@ -12,13 +16,13 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using log4net;
 
 namespace KH_Video_Switcher
 {
     public partial class frmClient : Form
     {
         private IHubProxy hub;
+        private HubConnection connection;
         private EnrichedSceneList scenes;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -30,83 +34,93 @@ namespace KH_Video_Switcher
             this.Location = new Point(left, top);
         }
 
-        private void GetScenes()
+        private async Task GetScenes()
         {
-            hub.Invoke("GetScenes").Wait();
+            await hub.Invoke("GetScenes");
         }
 
-        private void SetScene(string name)
+        private async Task SetScene(string name)
         {
-            hub.Invoke("SetScene",name).Wait();
+            await hub.Invoke("SetScene",name);
         }
 
         private async void frmClient_Load(object sender, EventArgs e)
         {
-            await ConnectWithRetry();
+            clientStatusMenu.Image = Properties.Resources.off_status_8px;
+            clientStatusMenu.ToolTipText = "Server Disconnected";
+            this.TopMost = Properties.Settings.Default.TopMost;
+            await Connect();
         }
 
-        private async Task ConnectWithRetry()
+        private async Task Connect()
         {
-            int attempt = 0;
-            int maxAttempts = 3;
-            int delaySeconds = 5;
-
-            while (attempt < maxAttempts)
+            try
             {
-                try
+                if (log.IsInfoEnabled) log.Info("Connecting to server");
+                connection = new HubConnection(Properties.Settings.Default.ServerURL);
+                hub = connection.CreateHubProxy("OBSHub");
+                hub.On<EnrichedSceneList>("ReceiveScenes", s => ReceiveScenes(s));
+                hub.On<bool>("ReceiveOBSStatus", connected =>
                 {
-                    attempt++;
-                    if (log.IsInfoEnabled) log.Info($"Connection attempt {attempt} of {maxAttempts}");
-
-                    if (hub == null)
+                    BeginInvoke((MethodInvoker)(() =>
                     {
-                        var connection = new HubConnection(ConfigurationManager.AppSettings["ServerURL"]);
-                        hub = connection.CreateHubProxy("OBSHub");
-                        hub.On<EnrichedSceneList>("ReceiveScenes", s => ReceiveScenes(s));
-                        await connection.Start();
-                        if (log.IsInfoEnabled) log.Info("Connected to server successfully");
-                    }
+                        clientStatusMenu.Image = connected
+                            ? Properties.Resources.ok_status_8px
+                            : Properties.Resources.connecting_status_8px;
+                        clientStatusMenu.ToolTipText = connected ? "OBS Connected" : "Server Connected - Waiting for OBS";
+                        this.Text = connected ? "KH Switcher (Zoom)" : "KH Switcher (Zoom) - Waiting for OBS";
 
-                    if (log.IsInfoEnabled) log.Info("Requesting scenes from server");
-                    GetScenes();
-
-                    // Wait briefly to give ReceiveScenes a chance to fire
-                    await Task.Delay(2000);
-
-                    if (scenes != null)
-                    {
-                        if (log.IsInfoEnabled) log.Info("Scenes received successfully");
-                        this.Text = "KH Switcher (Zoom)";
-                        return; // success
-                    }
-
-                    log.Warn($"No scenes received on attempt {attempt}, OBS may not be ready");
-                    this.Text = $"KH Switcher (Zoom) - Waiting for OBS... ({attempt}/{maxAttempts})";
-                    await Task.Delay((delaySeconds * 1000) - 2000); // subtract the 2s already waited
-                }
-                catch (Exception ex)
-                {
-                    hub = null; // force reconnect on next attempt
-                    log.Warn($"Connection attempt {attempt} failed: {ex.Message}");
-                    this.Text = $"KH Switcher (Zoom) - Waiting for server... ({attempt}/{maxAttempts})";
-                    await Task.Delay(delaySeconds * 1000);
-                }
-
-                if (attempt >= maxAttempts)
-                {
-                    log.Error("Max connection attempts reached");
-                    this.Text = "KH Switcher (Zoom) - Connection Failed";
-
-                    var msgBox = new Form() { TopMost = true };
-                    MessageBox.Show(msgBox,
-                        "Could not connect after several attempts. Please check the server and OBS are running and use Refresh to try again.",
-                        "Connection Failed",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-                }
+                        if (connected)
+                        {
+                            scenes = null;
+                            _ = Task.Run(async () => await GetScenes());
+                        }
+                    }));
+                });
+                connection.StateChanged += Connection_StateChanged;
+                await connection.Start();
+                if (log.IsInfoEnabled) log.Info("Connected to server successfully");
+                await GetScenes();
+            }
+            catch (Exception ex)
+            {
+                hub = null;
+                log.Warn($"Connection failed: {ex.Message}");
+                this.Text = "KH Switcher (Zoom) - Connection Failed";
+                MessageBox.Show("Could not connect to server. Please check the server is running and click Refresh to try again.",
+                    "Connection Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+        private void Connection_StateChanged(StateChange stateChange)
+        {
+            bool connected = stateChange.NewState == Microsoft.AspNet.SignalR.Client.ConnectionState.Connected;
+            BeginInvoke((MethodInvoker)(() =>
+            {
+                if (!connected)
+                {
+                    clientStatusMenu.Image = Properties.Resources.off_status_8px;
+                    clientStatusMenu.ToolTipText = "Server Disconnected";
+                    this.Text = "KH Switcher (Zoom) - Server Disconnected";
+                }
+                else
+                {
+                    clientStatusMenu.Image = Properties.Resources.connecting_status_8px;
+                    clientStatusMenu.ToolTipText = "Server Connected - Waiting for OBS";
+                    this.Text = "KH Switcher (Zoom) - Waiting for OBS";
+                }
+            }));
+        }
+        public void ApplySettings()
+        {
+            this.TopMost = Properties.Settings.Default.TopMost;
 
+            // Reconnect if server URL changed
+            if (connection?.State == Microsoft.AspNet.SignalR.Client.ConnectionState.Connected)
+                connection.Stop();
+
+            hub = null;
+            _ = Connect();
+        }
         private void UpdateSceneButtonColors()
         {
             foreach (Button sceneButton in tableLayoutPanel1.Controls)
@@ -115,14 +129,14 @@ namespace KH_Video_Switcher
             }
         }
 
-        private void sceneButtonClick(object sender, EventArgs e)
+        private async void sceneButtonClick(object sender, EventArgs e)
         {
             this.TopLevel = true;
-            this.TopMost = true;
+            // this.TopMost = true; Now handled in ApplySettings to avoid issues with the settings form
 
             var scene = ((Button)sender).Text;
             scenes.CurrentProgramSceneName = scene;
-            SetScene(scene);
+            await SetScene(scene);
         }
 
         private void ReceiveScenes(EnrichedSceneList data)
@@ -141,7 +155,7 @@ namespace KH_Video_Switcher
 
                     for (int i = 0; i < scenes.Scenes.Count; i++)
                     {
-                        var sceneName = scenes.Scenes[i].Name;
+                        // var sceneName = scenes.Scenes[i].Name;
 
                         tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, columnPercent));
                         var sceneButton = new Button();
@@ -179,13 +193,72 @@ namespace KH_Video_Switcher
             try
             {
                 scenes = null;
-                hub = null; // force a full reconnect
-                await ConnectWithRetry();
+                if (hub == null)
+                {
+                    await Connect();
+                }
+                else
+                {
+                    await GetScenes();
+                }
             }
             catch (Exception ex)
             {
                 log.Error(ex.Message, ex);
             }
+        }
+
+        private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AutoUpdaterDotNET.AutoUpdater.Start("https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/add-autoupdater/update.xml");
+        }
+
+        private void menuItemWiki_Click(object sender, EventArgs e)
+        {
+            string url = "https://github.com/aaroned/KH-Video-Switcher/wiki";
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmSettingsClient settings = new frmSettingsClient();
+            settings.Load += (s, e2) => settings.UpdateServerStatusDisplay(
+                connection?.State == Microsoft.AspNet.SignalR.Client.ConnectionState.Connected);
+            settings.ShowDialog();
+        }
+
+        private void viewLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            {// 1. Get the path to the system Temp folder
+                string tempFolder = Path.GetTempPath();
+
+                // 2. Combine it with your specific log file name
+                string logFilePath = Path.Combine(tempFolder, "KHSwitcher.log");
+
+                // 3. Safety check: Does the file exist?
+                if (File.Exists(logFilePath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = logFilePath,
+                        UseShellExecute = true // Uses default app (Notepad, VS Code, etc.)
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("Log file not found at: " + logFilePath);
+                }
+            }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAbout about = new frmAbout();
+            about.ShowDialog();
         }
     }
 }

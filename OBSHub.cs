@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -29,12 +28,17 @@ namespace KH_Video_Switcher
                 }).ToList()
             };
         }
-        public async void GetScenes() 
+        public static void BroadcastOBSStatus(bool connected)
+        {
+            var hub = GlobalHost.ConnectionManager.GetHubContext("OBSHub");
+            hub.Clients.All.ReceiveOBSStatus(connected);
+        }
+        public async void GetScenes()
         {
             try
             {
                 var obsWS = new OBSWebsocketDotNet.OBSWebsocket();
-                obsWS.ConnectAsync(ConfigurationManager.AppSettings["OBSURL"], ConfigurationManager.AppSettings["OBSPassword"]);
+                obsWS.ConnectAsync(Properties.Settings.Default.OBSURL, Properties.Settings.Default.OBSPassword);
 
                 var waitCount = 0;
                 while (!obsWS.IsConnected)
@@ -64,7 +68,7 @@ namespace KH_Video_Switcher
                 if (log.IsInfoEnabled) log.Info("Client requesting server to set camera");
                 var obsWS = new OBSWebsocketDotNet.OBSWebsocket();
                 if (log.IsInfoEnabled) log.Info("Connecting to OBS");
-                obsWS.ConnectAsync(ConfigurationManager.AppSettings["OBSURL"], ConfigurationManager.AppSettings["OBSPassword"]);
+                obsWS.ConnectAsync(Properties.Settings.Default.OBSURL, Properties.Settings.Default.OBSPassword);
 
                 var waitCount = 0;
                 while (!obsWS.IsConnected)

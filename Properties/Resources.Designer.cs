@@ -83,6 +83,16 @@ namespace KH_Video_Switcher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap connecting_status_8px {
+            get {
+                object obj = ResourceManager.GetObject("connecting-status-8px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap document_text {
             get {
                 object obj = ResourceManager.GetObject("document-text", resourceCulture);
@@ -96,6 +106,16 @@ namespace KH_Video_Switcher.Properties {
         internal static System.Drawing.Bitmap GitHub_16 {
             get {
                 object obj = ResourceManager.GetObject("GitHub-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Icon {
+            get {
+                object obj = ResourceManager.GetObject("Icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -216,6 +236,26 @@ namespace KH_Video_Switcher.Properties {
         internal static System.Drawing.Bitmap OnlyMKHIcon_62x40 {
             get {
                 object obj = ResourceManager.GetObject("OnlyMKHIcon-62x40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap question_circle_16 {
+            get {
+                object obj = ResourceManager.GetObject("question-circle-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap refresh_circle_16 {
+            get {
+                object obj = ResourceManager.GetObject("refresh-circle-16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
