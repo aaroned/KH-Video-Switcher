@@ -75,6 +75,29 @@ namespace JW_Library_Focuser
             public int Right;
             public int Bottom;
         }
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+        public struct DISPLAY_DEVICE
+        {
+            public int cb;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
+            public string DeviceName;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+            public string DeviceString; // Friendly name e.g. "Dell U2722D"
+            public int StateFlags;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+            public string DeviceID;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+            public string DeviceKey;
+        }
+
+        public const int DISPLAY_DEVICE_ACTIVE = 0x00000001;
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern bool EnumDisplayDevices(
+            string lpDevice,
+            uint iDevNum,
+            ref DISPLAY_DEVICE lpDisplayDevice,
+            uint dwFlags);
 
     }
 }

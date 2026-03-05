@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -11,10 +12,12 @@ namespace JW_Library_Focuser
         private const string ZoomLibProcessName = "Zoom";
         private const string MainWindowClassName = "ConfMultiTabContentWndClass";
         private const string ZoomLibCaptionPrefix = "Zoom Meeting";
-
-        // *** EDIT THIS TO TARGET DIFFERENT MONITOR ***
-        // Options: "PRIMARY" or a device name like "\\\\.\\DISPLAY1", "\\\\.\\DISPLAY2"
-        private static string TargetMonitorDevice = "\\\\.\\DISPLAY2";  // Change this!
+        private static string TargetMonitorDevice { get; set; } = "\\\\.\\DISPLAY2";
+        public static void SetTargetMonitor(string deviceName)
+        {
+            if (!string.IsNullOrEmpty(deviceName))
+                TargetMonitorDevice = deviceName;
+        }
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -241,6 +244,51 @@ namespace JW_Library_Focuser
 
             log.Info($"Target monitor device: {TargetMonitorDevice}");
             log.Info("==========================");
+        }
+        public static List<(string DeviceName, string FriendlyName)> GetAllMonitors()
+        {
+            var monitors = new List<(string, string)>();
+
+            uint deviceIndex = 0;
+            var displayDevice = new LibHelperNativeMethods.DISPLAY_DEVICE();
+            displayDevice.cb = Marshal.SizeOf(displayDevice);
+
+            while (LibHelperNativeMethods.EnumDisplayDevices(null, deviceIndex, ref displayDevice, 0))
+            {
+                if ((displayDevice.StateFlags & LibHelperNativeMethods.DISPLAY_DEVICE_ACTIVE) != 0)
+                {
+                    string adapterName = displayDevice.DeviceName;
+
+                    var monitorDevice = new LibHelperNativeMethods.DISPLAY_DEVICE();
+                    monitorDevice.cb = Marshal.SizeOf(monitorDevice);
+
+                    if (LibHelperNativeMethods.EnumDisplayDevices(adapterName, 0, ref monitorDevice, 0))
+                    {
+                        string friendlyName = monitorDevice.DeviceString;
+
+                        string resolution = "";
+                        bool isPrimary = false;
+                        foreach (System.Windows.Forms.Screen screen in System.Windows.Forms.Screen.AllScreens)
+                        {
+                            if (screen.DeviceName.Equals(adapterName, StringComparison.OrdinalIgnoreCase))
+                            {
+                                resolution = $"{screen.Bounds.Width}x{screen.Bounds.Height}";
+                                isPrimary = screen.Primary;
+                                break;
+                            }
+                        }
+
+                        string displayText = $"{friendlyName} - {resolution}{(isPrimary ? " (Primary)" : "")}";
+                        monitors.Add((adapterName, displayText));
+                    }
+                }
+
+                deviceIndex++;
+                displayDevice = new LibHelperNativeMethods.DISPLAY_DEVICE();
+                displayDevice.cb = Marshal.SizeOf(displayDevice);
+            }
+
+            return monitors;
         }
     }
 }

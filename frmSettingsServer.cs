@@ -1,4 +1,5 @@
 ﻿using AutoUpdaterDotNET;
+using JW_Library_Focuser;
 using KH_Video_Switcher.Properties;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,8 @@ namespace KH_Video_Switcher
             textBoxOBSPASS.Text = _originalOBSPassword;
 
             checkBoxTopMost.Checked = Properties.Settings.Default.TopMost;
+
+            PopulateMonitorDropdown();
         }
 
         public void UpdateOBSStatusDisplay(bool connected)
@@ -114,6 +117,8 @@ namespace KH_Video_Switcher
             _saved = true;
             Properties.Settings.Default.OBSURL = textBoxOBSURL.Text;
             Properties.Settings.Default.OBSPassword = textBoxOBSPASS.Text;
+            if (comboBoxSecondDisplay.SelectedItem is MonitorItem selectedMonitor)
+                Properties.Settings.Default.SecondDisplay = selectedMonitor.DeviceName;
             Properties.Settings.Default.Save();
             var serverForm = Application.OpenForms["frmServer"] as frmServer;
             serverForm?.ApplySettings();
@@ -143,7 +148,8 @@ namespace KH_Video_Switcher
                         OBSPassword = Properties.Settings.Default.OBSPassword,
                         CheckForUpdatesOnStartup = Properties.Settings.Default.CheckForUpdatesOnStartup,
                         onlyMView = Properties.Settings.Default.onlyMView,
-                        TopMost = Properties.Settings.Default.TopMost
+                        TopMost = Properties.Settings.Default.TopMost,
+                        SecondDisplay = Properties.Settings.Default.SecondDisplay
                     };
 
                     var serializer = new System.Xml.Serialization.XmlSerializer(typeof(AppSettings));
@@ -177,6 +183,7 @@ namespace KH_Video_Switcher
                         Properties.Settings.Default.CheckForUpdatesOnStartup = values.CheckForUpdatesOnStartup;
                         Properties.Settings.Default.onlyMView = values.onlyMView;
                         Properties.Settings.Default.TopMost = values.TopMost;
+                        Properties.Settings.Default.SecondDisplay = values.SecondDisplay;
                         Properties.Settings.Default.Save();
                     }
 
@@ -185,6 +192,8 @@ namespace KH_Video_Switcher
                     textBoxOBSURL.Text = Properties.Settings.Default.OBSURL;
                     textBoxOBSPASS.Text = Properties.Settings.Default.OBSPassword;
                     checkBoxTopMost.Checked = Properties.Settings.Default.TopMost;
+                    PopulateMonitorDropdown();  
+
 
                     MessageBox.Show("Settings imported successfully! Click Save to apply.", "Import", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -242,6 +251,43 @@ namespace KH_Video_Switcher
         {
             Properties.Settings.Default.TopMost = checkBoxTopMost.Checked;
         }
+        private void PopulateMonitorDropdown()
+        {
+            var monitors = ZoomLibHelper.GetAllMonitors();
+            comboBoxSecondDisplay.Items.Clear();
+
+            foreach (var monitor in monitors)
+            {
+                comboBoxSecondDisplay.Items.Add(new MonitorItem(monitor.DeviceName, monitor.FriendlyName));
+            }
+
+            comboBoxSecondDisplay.DisplayMember = "FriendlyName";
+
+            // Select the currently saved display
+            var saved = Properties.Settings.Default.SecondDisplay;
+            foreach (MonitorItem item in comboBoxSecondDisplay.Items)
+            {
+                if (item.DeviceName.Equals(saved, StringComparison.OrdinalIgnoreCase))
+                {
+                    comboBoxSecondDisplay.SelectedItem = item;
+                    break;
+                }
+            }
+
+            // Fall back to first item if nothing matched
+            if (comboBoxSecondDisplay.SelectedIndex == -1 && comboBoxSecondDisplay.Items.Count > 0)
+                comboBoxSecondDisplay.SelectedIndex = 0;
+        }
+    }
+    public class MonitorItem
+    {
+        public string DeviceName { get; set; }
+        public string FriendlyName { get; set; }
+        public MonitorItem(string deviceName, string friendlyName)
+        {
+            DeviceName = deviceName;
+            FriendlyName = friendlyName;
+        }
     }
     public class AppSettings
     {
@@ -250,5 +296,6 @@ namespace KH_Video_Switcher
         public bool CheckForUpdatesOnStartup { get; set; }
         public bool onlyMView { get; set; }
         public bool TopMost { get; set; }
+        public string SecondDisplay { get; set; }
     }
 }

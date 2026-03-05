@@ -106,5 +106,17 @@ namespace KH_Video_Switcher.Properties {
                 this["TopMost"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\.\\DISPLAY2")]
+        public string SecondDisplay {
+            get {
+                return ((string)(this["SecondDisplay"]));
+            }
+            set {
+                this["SecondDisplay"] = value;
+            }
+        }
     }
 }

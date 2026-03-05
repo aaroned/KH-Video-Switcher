@@ -111,6 +111,7 @@ namespace KH_Video_Switcher
             {
                 if (log.IsInfoEnabled) log.Info($"Connecting to OBS: {Properties.Settings.Default.OBSURL}");
                 obsWS.ConnectAsync(Properties.Settings.Default.OBSURL, Properties.Settings.Default.OBSPassword);
+                ZoomLibHelper.SetTargetMonitor(Properties.Settings.Default.SecondDisplay);
 
                 JwLibHelper.BringToFront();
 
@@ -296,6 +297,8 @@ namespace KH_Video_Switcher
         public void ApplySettings()
         {
             this.TopMost = Properties.Settings.Default.TopMost;
+
+            ZoomLibHelper.SetTargetMonitor(Properties.Settings.Default.SecondDisplay);
 
             if (!Properties.Settings.Default.onlyMView)
             {
