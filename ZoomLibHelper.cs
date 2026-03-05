@@ -259,28 +259,20 @@ namespace JW_Library_Focuser
                 {
                     string adapterName = displayDevice.DeviceName;
 
-                    var monitorDevice = new LibHelperNativeMethods.DISPLAY_DEVICE();
-                    monitorDevice.cb = Marshal.SizeOf(monitorDevice);
-
-                    if (LibHelperNativeMethods.EnumDisplayDevices(adapterName, 0, ref monitorDevice, 0))
+                    string resolution = "";
+                    bool isPrimary = false;
+                    foreach (System.Windows.Forms.Screen screen in System.Windows.Forms.Screen.AllScreens)
                     {
-                        string friendlyName = monitorDevice.DeviceString;
-
-                        string resolution = "";
-                        bool isPrimary = false;
-                        foreach (System.Windows.Forms.Screen screen in System.Windows.Forms.Screen.AllScreens)
+                        if (screen.DeviceName.Equals(adapterName, StringComparison.OrdinalIgnoreCase))
                         {
-                            if (screen.DeviceName.Equals(adapterName, StringComparison.OrdinalIgnoreCase))
-                            {
-                                resolution = $"{screen.Bounds.Width}x{screen.Bounds.Height}";
-                                isPrimary = screen.Primary;
-                                break;
-                            }
+                            resolution = $"{screen.Bounds.Width}x{screen.Bounds.Height}";
+                            isPrimary = screen.Primary;
+                            break;
                         }
-
-                        string displayText = $"{friendlyName} - {resolution}{(isPrimary ? " (Primary)" : "")}";
-                        monitors.Add((adapterName, displayText));
                     }
+
+                    string displayText = $"Display {monitors.Count + 1} - {resolution}{(isPrimary ? " (Primary)" : "")}";
+                    monitors.Add((adapterName, displayText));
                 }
 
                 deviceIndex++;

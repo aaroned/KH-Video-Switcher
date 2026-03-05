@@ -82,7 +82,7 @@ namespace JW_Library_Focuser
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
             public string DeviceName;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
-            public string DeviceString; // Friendly name e.g. "Dell U2722D"
+            public string DeviceString; // Driver description e.g. "Generic PnP Monitor"
             public int StateFlags;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
             public string DeviceID;
@@ -98,6 +98,6 @@ namespace JW_Library_Focuser
             uint iDevNum,
             ref DISPLAY_DEVICE lpDisplayDevice,
             uint dwFlags);
-
+        
     }
 }

@@ -43,9 +43,10 @@
             // 
             this.picAppIcon.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.picAppIcon.Image = global::KH_Video_Switcher.Properties.Resources.Icon;
-            this.picAppIcon.Location = new System.Drawing.Point(160, 63);
+            this.picAppIcon.Location = new System.Drawing.Point(320, 121);
+            this.picAppIcon.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.picAppIcon.Name = "picAppIcon";
-            this.picAppIcon.Size = new System.Drawing.Size(65, 65);
+            this.picAppIcon.Size = new System.Drawing.Size(130, 125);
             this.picAppIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picAppIcon.TabIndex = 0;
             this.picAppIcon.TabStop = false;
@@ -55,9 +56,10 @@
             this.labelAppName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelAppName.AutoSize = true;
             this.labelAppName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAppName.Location = new System.Drawing.Point(128, 141);
+            this.labelAppName.Location = new System.Drawing.Point(256, 271);
+            this.labelAppName.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelAppName.Name = "labelAppName";
-            this.labelAppName.Size = new System.Drawing.Size(129, 25);
+            this.labelAppName.Size = new System.Drawing.Size(250, 48);
             this.labelAppName.TabIndex = 1;
             this.labelAppName.Text = "KH Switcher";
             this.labelAppName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -67,9 +69,10 @@
             this.labelDescription.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelDescription.AutoSize = true;
             this.labelDescription.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.labelDescription.Location = new System.Drawing.Point(96, 169);
+            this.labelDescription.Location = new System.Drawing.Point(192, 325);
+            this.labelDescription.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelDescription.Name = "labelDescription";
-            this.labelDescription.Size = new System.Drawing.Size(193, 13);
+            this.labelDescription.Size = new System.Drawing.Size(395, 25);
             this.labelDescription.TabIndex = 2;
             this.labelDescription.Text = "Simple AV switching for hybrid meetings";
             // 
@@ -78,18 +81,20 @@
             this.labelVersion.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelVersion.AutoSize = true;
             this.labelVersion.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.labelVersion.Location = new System.Drawing.Point(152, 193);
+            this.labelVersion.Location = new System.Drawing.Point(304, 371);
+            this.labelVersion.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(81, 13);
+            this.labelVersion.Size = new System.Drawing.Size(163, 25);
             this.labelVersion.TabIndex = 4;
             this.labelVersion.Text = "Version: 0.0.0.0";
             // 
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(297, 376);
+            this.btnClose.Location = new System.Drawing.Point(594, 723);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.Size = new System.Drawing.Size(150, 44);
             this.btnClose.TabIndex = 5;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -100,9 +105,10 @@
             this.btnGithub.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnGithub.Image = global::KH_Video_Switcher.Properties.Resources.GitHub_16;
             this.btnGithub.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGithub.Location = new System.Drawing.Point(132, 249);
+            this.btnGithub.Location = new System.Drawing.Point(264, 479);
+            this.btnGithub.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnGithub.Name = "btnGithub";
-            this.btnGithub.Size = new System.Drawing.Size(121, 38);
+            this.btnGithub.Size = new System.Drawing.Size(242, 73);
             this.btnGithub.TabIndex = 6;
             this.btnGithub.Text = "View on GitHub";
             this.btnGithub.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -114,18 +120,19 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label1.Location = new System.Drawing.Point(62, 293);
+            this.label1.Location = new System.Drawing.Point(124, 563);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(260, 13);
+            this.label1.Size = new System.Drawing.Size(521, 25);
             this.label1.TabIndex = 7;
             this.label1.Text = "Contribute, provide feedback, and get help on GitHub";
             this.label1.UseWaitCursor = true;
             // 
             // frmAbout
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 411);
+            this.ClientSize = new System.Drawing.Size(768, 790);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnGithub);
             this.Controls.Add(this.btnClose);
@@ -134,9 +141,10 @@
             this.Controls.Add(this.labelAppName);
             this.Controls.Add(this.picAppIcon);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(400, 450);
+            this.MinimumSize = new System.Drawing.Size(794, 861);
             this.Name = "frmAbout";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "About KH Switcher";
