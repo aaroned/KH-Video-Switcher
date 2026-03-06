@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Update this file with each new release: version, url -->
+<item>
+    <!-- Version number must match the assembly version exactly -->
+    <version>2.0.0.5</version>
+    <!-- Direct download link to the installer on GitHub releases -->
+    <url>https://github.com/aaroned/KH-Video-Switcher/releases/download/2.0.0.5/KH.Switcher.2.0.0.5.exe</url>
+    <!-- Points to latest release notes on GitHub -->
+    <changelog>https://github.com/aaroned/KH-Video-Switcher/releases/latest</changelog>
+    <mandatory>false</mandatory>
+</item>
