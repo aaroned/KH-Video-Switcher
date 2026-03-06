@@ -50,6 +50,18 @@ namespace KH_Video_Switcher
             clientStatusMenu.ToolTipText = "Server Disconnected";
             this.TopMost = Properties.Settings.Default.TopMost;
             await Connect();
+
+            var reconnectTimer = new System.Windows.Forms.Timer();
+            reconnectTimer.Interval = 5000;
+            reconnectTimer.Tick += async (s, args) =>
+            {
+                if (hub == null)
+                {
+                    if (log.IsInfoEnabled) log.Info("Not connected to server, attempting reconnect...");
+                    await Connect();
+                }
+            };
+            reconnectTimer.Start();
         }
 
         private async Task Connect()
@@ -87,9 +99,6 @@ namespace KH_Video_Switcher
             {
                 hub = null;
                 log.Warn($"Connection failed: {ex.Message}");
-                this.Text = "KH Switcher (Zoom) - Connection Failed";
-                MessageBox.Show("Could not connect to server. Please check the server is running and click Refresh to try again.",
-                    "Connection Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void Connection_StateChanged(StateChange stateChange)
