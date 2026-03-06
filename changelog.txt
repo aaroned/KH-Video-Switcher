@@ -2,6 +2,9 @@
     v2.0.0.5 
 
 What's Fixed
-- Zoom Workplace version 6.7.0 introduced a change that broke the Zoom button. This update restores that functionality for version 6.7.0 and newer.
+- Zoom Workplace version 6.7.0 introduced a change
+that broke the Zoom button. This update restores 
+that functionality for version 6.7.0 and newer.
 
-*NOTE: Please update Zoom Workplace to the latest version before installing this update to ensure compatibility
+*NOTE: Please update Zoom Workplace to the latest version 
+before installing this update to ensure compatibility
