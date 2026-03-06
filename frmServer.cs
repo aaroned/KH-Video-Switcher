@@ -24,7 +24,7 @@ namespace KH_Video_Switcher
         private IDisposable server;
 
         // FOR TESTING - Comment out when not testing
-        private frmClient client;
+        // private frmClient client;
         // END FOR TESTING
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -155,9 +155,9 @@ namespace KH_Video_Switcher
                 JwLibHelper.BringToFront();
 
                 // FOR TESTING - Comment out when not testing
-                client = new frmClient(); 
-                client.Top = this.Bottom;
-                client.Show();
+                //client = new frmClient(); 
+                //client.Top = this.Bottom;
+                //client.Show();
                 // END FOR TESTING
 
                 this.TopMost = Properties.Settings.Default.TopMost;
