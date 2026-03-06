@@ -56,7 +56,7 @@ namespace KH_Video_Switcher
 
         private void btnUpdates_Click(object sender, EventArgs e)
         {
-            AutoUpdaterDotNET.AutoUpdater.Start("https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/add-autoupdater/update.xml");
+            AutoUpdaterDotNET.AutoUpdater.Start("https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/master/update.xml");
         }
 
         private void btnGithub_Click(object sender, EventArgs e)

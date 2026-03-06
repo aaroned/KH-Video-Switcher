@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<item>
-	<version>2.0.0.5</version>
-	<url>https://github.com/aaroned/KH-Video-Switcher/releases/download/v2.0.0.4/KH.Switcher.2.0.0.4.exe</url>
-	<changelog>https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/add-autoupdater/changelog.txt</changelog>
-	<mandatory>false</mandatory>
-</item>

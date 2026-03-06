@@ -233,7 +233,7 @@ namespace KH_Video_Switcher
 
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AutoUpdaterDotNET.AutoUpdater.Start("https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/add-autoupdater/update.xml");
+            AutoUpdaterDotNET.AutoUpdater.Start("https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/master/update.xml");
         }
 
         private void menuItemWiki_Click(object sender, EventArgs e)

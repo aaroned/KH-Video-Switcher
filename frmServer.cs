@@ -22,7 +22,11 @@ namespace KH_Video_Switcher
     {
         private OBSWebsocketDotNet.OBSWebsocket obsWS;
         private IDisposable server;
-        private frmClient client; // FOR TESTING - Comment out when not testing
+
+        // FOR TESTING - Comment out when not testing
+        private frmClient client;
+        // END FOR TESTING
+
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private bool _lastOBSStatus = false;
 
@@ -150,9 +154,11 @@ namespace KH_Video_Switcher
 
                 JwLibHelper.BringToFront();
 
-                client = new frmClient(); // FOR TESTING - Comment out when not testing
+                // FOR TESTING - Comment out when not testing
+                client = new frmClient(); 
                 client.Top = this.Bottom;
-                client.Show(); // FOR TESTING - Comment out when not testing
+                client.Show();
+                // END FOR TESTING
 
                 this.TopMost = Properties.Settings.Default.TopMost;
             }
@@ -310,7 +316,7 @@ namespace KH_Video_Switcher
 
         private void menuItemUpdate_Click(object sender, EventArgs e)
         {
-            AutoUpdaterDotNET.AutoUpdater.Start("https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/add-autoupdater/update.xml");
+            AutoUpdaterDotNET.AutoUpdater.Start("https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/master/update.xml");
         }
 
         private void menuItemWiki_Click(object sender, EventArgs e)

@@ -39,7 +39,7 @@ namespace KH_Video_Switcher
                 Task.Delay(5000).ContinueWith(t =>   // Delay the update check by 5 seconds to allow the main form to load first
                 {
                     Application.OpenForms[0].Invoke((Action)(() =>  // Invoke on the main UI thread to show the update dialog as topmost
-                        AutoUpdater.Start("https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/add-autoupdater/update.xml")
+                        AutoUpdater.Start("https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/master/update.xml")
                     ));
                 });
             }
