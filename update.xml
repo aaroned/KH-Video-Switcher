@@ -5,6 +5,6 @@
     <version>2.0.0.5</version>
     <!-- Direct download link to the installer on GitHub releases -->
     <url>https://github.com/aaroned/KH-Video-Switcher/releases/download/2.0.0.5/KH.Switcher.2.0.0.5.exe</url>
-    <!-- <changelog>https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/master/changelog.txt</changelog> -->
+    <changelog>https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/master/changelog.txt</changelog>
     <mandatory>false</mandatory>
 </item>
