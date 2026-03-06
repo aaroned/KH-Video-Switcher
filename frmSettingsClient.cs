@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using log4net;
 
 namespace KH_Video_Switcher
 {
@@ -15,6 +16,7 @@ namespace KH_Video_Switcher
     {
         private bool _saved = false;
         private string _originalServerURL;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public frmSettingsClient()
         {
@@ -119,6 +121,7 @@ namespace KH_Video_Switcher
             _saved = true;
             Properties.Settings.Default.ServerURL = textBoxServerURL.Text;
             Properties.Settings.Default.Save();
+            log.Info("Client settings saved");
             var clientForm = Application.OpenForms["frmClient"] as frmClient;
             clientForm?.ApplySettings();
             this.Close();
@@ -155,8 +158,9 @@ namespace KH_Video_Switcher
 
                     MessageBox.Show("Settings exported successfully!", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    log.Error(ex.Message, ex);
                     MessageBox.Show("Failed to export settings.", "Export Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -187,8 +191,9 @@ namespace KH_Video_Switcher
 
                     MessageBox.Show("Settings imported successfully! Click Save to apply.", "Import", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    log.Error(ex.Message, ex);
                     MessageBox.Show("Failed to import settings. Please make sure the file is a valid settings backup.", "Import Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }

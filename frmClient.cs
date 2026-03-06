@@ -79,7 +79,7 @@ namespace KH_Video_Switcher
         {
             try
             {
-                if (log.IsInfoEnabled) log.Info("Connecting to server");
+                if (log.IsInfoEnabled) log.Info($"Connecting to server: {Properties.Settings.Default.ServerURL}");
                 connection = new HubConnection(Properties.Settings.Default.ServerURL);
                 hub = connection.CreateHubProxy("OBSHub");
                 hub.On<EnrichedSceneList>("ReceiveScenes", s => ReceiveScenes(s));

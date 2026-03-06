@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using log4net;
 
 namespace KH_Video_Switcher
 
@@ -22,6 +23,7 @@ namespace KH_Video_Switcher
         private bool _saved = false;
         private string _originalOBSURL;
         private string _originalOBSPassword;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public frmSettingsServer()
         {
@@ -120,6 +122,7 @@ namespace KH_Video_Switcher
             if (comboBoxSecondDisplay.SelectedItem is MonitorItem selectedMonitor)
                 Properties.Settings.Default.SecondDisplay = selectedMonitor.DeviceName;
             Properties.Settings.Default.Save();
+            log.Info("Server settings saved");
             var serverForm = Application.OpenForms["frmServer"] as frmServer;
             serverForm?.ApplySettings();
             this.Close();
@@ -158,8 +161,9 @@ namespace KH_Video_Switcher
 
                     MessageBox.Show("Settings exported successfully!", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    log.Error(ex.Message, ex);
                     MessageBox.Show("Failed to export settings.", "Export Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -197,8 +201,9 @@ namespace KH_Video_Switcher
 
                     MessageBox.Show("Settings imported successfully! Click Save to apply.", "Import", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    log.Error(ex.Message, ex);
                     MessageBox.Show("Failed to import settings. Please make sure the file is a valid settings backup.", "Import Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }

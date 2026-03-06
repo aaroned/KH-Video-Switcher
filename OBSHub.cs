@@ -33,7 +33,7 @@ namespace KH_Video_Switcher
             var hub = GlobalHost.ConnectionManager.GetHubContext("OBSHub");
             hub.Clients.All.ReceiveOBSStatus(connected);
         }
-        public async void GetScenes()
+        public async Task GetScenes()
         {
             try
             {
@@ -57,11 +57,10 @@ namespace KH_Video_Switcher
             catch (Exception exc)
             {
                 log.Error(exc.Message, exc);
-                throw;
             }
         }
 
-        public async void SetScene(string name)
+        public async Task SetScene(string name)
         {
             try
             {
@@ -105,7 +104,6 @@ namespace KH_Video_Switcher
             catch (Exception exc)
             {
                 log.Error(exc.Message, exc);
-                throw;
             }
         }
     }
