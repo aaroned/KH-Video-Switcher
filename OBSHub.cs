@@ -11,6 +11,7 @@ namespace KH_Video_Switcher
     public class OBSHub : Hub
     {
         public static bool IsCurrentlyZoom;
+        public static bool LastOBSStatus { get; set; } = false;
         public static string LastSelectedCamera;
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -30,8 +31,13 @@ namespace KH_Video_Switcher
         }
         public static void BroadcastOBSStatus(bool connected)
         {
+            LastOBSStatus = connected;
             var hub = GlobalHost.ConnectionManager.GetHubContext("OBSHub");
             hub.Clients.All.ReceiveOBSStatus(connected);
+        }
+        public void GetOBSStatus()
+        {
+            Clients.Caller.ReceiveOBSStatus(LastOBSStatus);
         }
         public async Task GetScenes()
         {

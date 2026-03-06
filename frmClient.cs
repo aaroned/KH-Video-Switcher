@@ -80,6 +80,7 @@ namespace KH_Video_Switcher
                 connection.StateChanged += Connection_StateChanged;
                 await connection.Start();
                 if (log.IsInfoEnabled) log.Info("Connected to server successfully");
+                await hub.Invoke("GetOBSStatus");
                 await GetScenes();
             }
             catch (Exception ex)
@@ -199,6 +200,7 @@ namespace KH_Video_Switcher
                 }
                 else
                 {
+                    await hub.Invoke("GetOBSStatus");
                     await GetScenes();
                 }
             }
