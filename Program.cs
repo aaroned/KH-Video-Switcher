@@ -21,61 +21,17 @@ namespace KH_Video_Switcher
         [STAThread]
         static void Main()
         {
-            // One-time migration from app.config to user settings
-            if (!Properties.Settings.Default.MigratedFromAppConfig)
-            {
-                log.Info("Starting migration from app.config to user settings");
-
-                var oldURL = ConfigurationManager.AppSettings["OBSURL"];
-                var oldPassword = ConfigurationManager.AppSettings["OBSPassword"];
-                var oldServerURL = ConfigurationManager.AppSettings["ServerURL"];
-
-                if (!string.IsNullOrEmpty(oldURL))
-                {
-                    Properties.Settings.Default.OBSURL = oldURL;
-                    log.Info($"Migrated OBSURL: {oldURL}");
-                }
-                else
-                {
-                    log.Info("OBSURL not migrated - not found in app.config");
-                }
-
-                if (!string.IsNullOrEmpty(oldPassword) && oldPassword != "MzkwPS18pLvjmbF5") // Don't migrate the default password if it was left unchanged
-                {
-                    Properties.Settings.Default.OBSPassword = oldPassword;
-                    log.Info("Migrated OBSPassword");
-                }
-                else
-                {
-                    log.Info("OBSPassword not migrated - empty, not found, or default password detected");
-                }
-
-                if (!string.IsNullOrEmpty(oldServerURL))
-                {
-                    Properties.Settings.Default.ServerURL = oldServerURL;
-                    log.Info($"Migrated ServerURL: {oldServerURL}");
-                }
-                else
-                {
-                    log.Info("ServerURL not migrated - not found in app.config");
-                }
-
-                Properties.Settings.Default.MigratedFromAppConfig = true;
-                Properties.Settings.Default.Save();
-                log.Info("Migration complete");
-            }
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Customize the update notification
-            AutoUpdater.ShowSkipButton = true;  // Let users skip this version
-            AutoUpdater.ShowRemindLaterButton = true;  // Remind me later option
-            AutoUpdater.Mandatory = false;  // Don't force update
+            // AutoUpdater configuration 
+            /// Customize the update notification
+            AutoUpdater.ShowSkipButton = true;
+            AutoUpdater.ShowRemindLaterButton = true;
+            AutoUpdater.Mandatory = false; 
             AutoUpdater.ReportErrors = true;
-            AutoUpdater.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath).ToBitmap();  // Set your app icon for the update dialog
-            AutoUpdater.TopMost = true;  // Keep update window on top of all others
-
+            AutoUpdater.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath).ToBitmap();  /// Set icon
+            AutoUpdater.TopMost = true;
 
             // Check for updates on startup
             if (Settings.Default.CheckForUpdatesOnStartup)
@@ -88,8 +44,6 @@ namespace KH_Video_Switcher
                 });
             }
                 
-
-
             var clientModeSetting = ConfigurationManager.AppSettings["ClientMode"];
             var isClientMode = (clientModeSetting != null && clientModeSetting.ToLower() == "true");
 

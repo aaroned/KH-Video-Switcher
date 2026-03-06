@@ -46,6 +46,29 @@ namespace KH_Video_Switcher
 
         private async void frmClient_Load(object sender, EventArgs e)
         {
+            // One-time migration from app.config to user settings - can be removed in a future release after most users have migrated
+            if (!Properties.Settings.Default.MigratedClientAppConfig)
+            {
+                log.Info("Starting client migration from app.config to user settings");
+
+                var oldServerURL = ConfigurationManager.AppSettings["ServerURL"];
+
+                if (!string.IsNullOrEmpty(oldServerURL))
+                {
+                    Properties.Settings.Default.ServerURL = oldServerURL;
+                    log.Info($"Migrated ServerURL: {oldServerURL}");
+                }
+                else
+                {
+                    log.Info("ServerURL not migrated - not found in app.config");
+                }
+
+                Properties.Settings.Default.MigratedClientAppConfig = true;
+                Properties.Settings.Default.Save();
+                log.Info("Client migration complete");
+            }
+            // End of migration code - can be removed in a future release after most users have migrated
+
             clientStatusMenu.Image = Properties.Resources.off_status_8px;
             clientStatusMenu.ToolTipText = "Server Disconnected";
             this.TopMost = Properties.Settings.Default.TopMost;

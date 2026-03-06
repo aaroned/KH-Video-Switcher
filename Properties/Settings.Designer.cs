@@ -73,18 +73,6 @@ namespace KH_Video_Switcher.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool MigratedFromAppConfig {
-            get {
-                return ((bool)(this["MigratedFromAppConfig"]));
-            }
-            set {
-                this["MigratedFromAppConfig"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:7004/")]
         public string ServerURL {
             get {
@@ -116,6 +104,30 @@ namespace KH_Video_Switcher.Properties {
             }
             set {
                 this["SecondDisplay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MigratedServerAppConfig {
+            get {
+                return ((bool)(this["MigratedServerAppConfig"]));
+            }
+            set {
+                this["MigratedServerAppConfig"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MigratedClientAppConfig {
+            get {
+                return ((bool)(this["MigratedClientAppConfig"]));
+            }
+            set {
+                this["MigratedClientAppConfig"] = value;
             }
         }
     }

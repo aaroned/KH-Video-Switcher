@@ -1,19 +1,20 @@
-﻿using JW_Library_Focuser;
+﻿using AutoUpdaterDotNET;
+using JW_Library_Focuser;
 using log4net;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Hosting;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using System.IO;
-using AutoUpdaterDotNET;
 
 namespace KH_Video_Switcher
 {
@@ -99,6 +100,40 @@ namespace KH_Video_Switcher
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // One-time migration from app.config to user settings - can be removed in a future release after most users have migrated
+            if (!Properties.Settings.Default.MigratedServerAppConfig)
+            {
+                log.Info("Starting server migration from app.config to user settings");
+
+                var oldURL = ConfigurationManager.AppSettings["OBSURL"];
+                var oldPassword = ConfigurationManager.AppSettings["OBSPassword"];
+
+                if (!string.IsNullOrEmpty(oldURL)) 
+                {
+                    Properties.Settings.Default.OBSURL = oldURL;
+                    log.Info($"Migrated OBSURL: {oldURL}");
+                }
+                else
+                {
+                    log.Info("OBSURL not migrated - not found in app.config");
+                }
+
+                if (!string.IsNullOrEmpty(oldPassword) && oldPassword != "MzkwPS18pLvjmbF5") // Don't migrate the default password if it was left unchanged
+                {
+                    Properties.Settings.Default.OBSPassword = oldPassword;
+                    log.Info("Migrated OBSPassword");
+                }
+                else
+                {
+                    log.Info("OBSPassword not migrated - empty, not found, or default password detected");
+                }
+
+                Properties.Settings.Default.MigratedServerAppConfig = true;
+                Properties.Settings.Default.Save();
+                log.Info("Server migration complete");
+            }
+            // End of migration code - can be removed in a future release after most users have migrated
+
             if (!Properties.Settings.Default.onlyMView)
             {
                 btnOnlyM.Visible = false;

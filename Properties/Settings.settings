@@ -14,9 +14,6 @@
     <Setting Name="OBSPassword" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="MigratedFromAppConfig" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="ServerURL" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://localhost:7004/</Value>
     </Setting>
@@ -25,6 +22,12 @@
     </Setting>
     <Setting Name="SecondDisplay" Type="System.String" Scope="User">
       <Value Profile="(Default)">\\.\DISPLAY2</Value>
+    </Setting>
+    <Setting Name="MigratedServerAppConfig" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MigratedClientAppConfig" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>
