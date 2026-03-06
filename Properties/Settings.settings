@@ -23,10 +23,7 @@
     <Setting Name="SecondDisplay" Type="System.String" Scope="User">
       <Value Profile="(Default)">\\.\DISPLAY2</Value>
     </Setting>
-    <Setting Name="MigratedServerAppConfig" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="MigratedClientAppConfig" Type="System.Boolean" Scope="User">
+    <Setting Name="MigratedToUnifiedSettings" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

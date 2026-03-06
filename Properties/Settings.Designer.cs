@@ -110,24 +110,12 @@ namespace KH_Video_Switcher.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool MigratedServerAppConfig {
+        public bool MigratedToUnifiedSettings {
             get {
-                return ((bool)(this["MigratedServerAppConfig"]));
+                return ((bool)(this["MigratedToUnifiedSettings"]));
             }
             set {
-                this["MigratedServerAppConfig"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool MigratedClientAppConfig {
-            get {
-                return ((bool)(this["MigratedClientAppConfig"]));
-            }
-            set {
-                this["MigratedClientAppConfig"] = value;
+                this["MigratedToUnifiedSettings"] = value;
             }
         }
     }
