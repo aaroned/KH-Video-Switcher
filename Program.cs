@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using log4net;
 using System.IO;
+using System.Diagnostics;
 
 namespace KH_Video_Switcher
 {
@@ -38,8 +39,10 @@ namespace KH_Video_Switcher
             AutoUpdater.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath).ToBitmap();
             AutoUpdater.TopMost = true;
 
-            // Check for updates on startup
-            if (Settings.Default.CheckForUpdatesOnStartup)
+            // Check for updates on startup - only if first instance
+            bool isFirstInstance = Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length == 1;
+
+            if (Settings.Default.CheckForUpdatesOnStartup && isFirstInstance)
             {
                 Task.Delay(5000).ContinueWith(t => // Delay check to allow form to load
                 {
