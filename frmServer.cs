@@ -142,11 +142,16 @@ namespace KH_Video_Switcher
                 if (log.IsInfoEnabled) log.Info("JW library button clicked.");
                 JwLibHelper.BringToFront();
                 ZoomLibHelper.Minimize();
-                OnlyMLibHelper.Minimize();
                 OBSHub.IsCurrentlyZoom = false;
                 btnJWLibrary.BackColor = Color.DarkRed;
-                btnOnlyM.BackColor = Color.RoyalBlue;
                 btnZoom.BackColor = Color.RoyalBlue;
+
+                if (Properties.Settings.Default.onlyMView)
+                {
+                    OnlyMLibHelper.Minimize();
+                    btnOnlyM.BackColor = Color.RoyalBlue;
+                }
+
             }
             catch (Exception exc)
             {
@@ -208,12 +213,16 @@ namespace KH_Video_Switcher
                         hub.Clients.All.ReceiveScenes(result);
                     }
                 }
+                if (Properties.Settings.Default.onlyMView)
+                {
+
+                    OnlyMLibHelper.Minimize();
+                    btnOnlyM.BackColor = Color.RoyalBlue;
+                }
 
                 OBSHub.IsCurrentlyZoom = true;
                 ZoomLibHelper.BringToFront();
-                OnlyMLibHelper.Minimize();
                 btnJWLibrary.BackColor = Color.RoyalBlue;
-                btnOnlyM.BackColor = Color.RoyalBlue;
                 btnZoom.BackColor = Color.DarkRed;
             }
             catch (Exception exc)
