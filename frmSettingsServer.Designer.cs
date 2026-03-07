@@ -93,7 +93,7 @@
             this.tabGeneral.ForeColor = System.Drawing.SystemColors.ControlText;
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabGeneral.Name = "tabGeneral";
-            this.tabGeneral.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabGeneral.Padding = new System.Windows.Forms.Padding(3);
             this.tabGeneral.Size = new System.Drawing.Size(352, 332);
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General";
@@ -260,7 +260,7 @@
             this.tabOBS.Controls.Add(this.groupBoxOBS);
             this.tabOBS.Location = new System.Drawing.Point(4, 22);
             this.tabOBS.Name = "tabOBS";
-            this.tabOBS.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabOBS.Padding = new System.Windows.Forms.Padding(3);
             this.tabOBS.Size = new System.Drawing.Size(352, 332);
             this.tabOBS.TabIndex = 1;
             this.tabOBS.Text = "OBS Connection";
@@ -376,7 +376,7 @@
             this.tabUpdate.Controls.Add(this.btnUpdates);
             this.tabUpdate.Location = new System.Drawing.Point(4, 22);
             this.tabUpdate.Name = "tabUpdate";
-            this.tabUpdate.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabUpdate.Padding = new System.Windows.Forms.Padding(3);
             this.tabUpdate.Size = new System.Drawing.Size(352, 332);
             this.tabUpdate.TabIndex = 2;
             this.tabUpdate.Text = "Update";
@@ -443,14 +443,14 @@
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(389, 427);
+            this.ClientSize = new System.Drawing.Size(384, 411);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(405, 466);
+            this.MaximumSize = new System.Drawing.Size(400, 450);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(405, 466);
+            this.MinimumSize = new System.Drawing.Size(400, 450);
             this.Name = "frmSettingsServer";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
