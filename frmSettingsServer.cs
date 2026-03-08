@@ -214,9 +214,9 @@ namespace KH_Video_Switcher
             btnTestOBS.Enabled = false;
             btnTestOBS.Text = "Testing...";
 
+            var obsWS = new OBSWebsocketDotNet.OBSWebsocket();
             try
             {
-                var obsWS = new OBSWebsocketDotNet.OBSWebsocket();
                 obsWS.ConnectAsync(textBoxOBSURL.Text, textBoxOBSPASS.Text);
 
                 var waited = 0;
@@ -228,7 +228,6 @@ namespace KH_Video_Switcher
 
                 if (obsWS.IsConnected)
                 {
-                    obsWS.Disconnect();
                     UpdateOBSStatusDisplay(true);
                     MessageBox.Show("Successfully connected to OBS!", "Connection Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -247,6 +246,9 @@ namespace KH_Video_Switcher
             }
             finally
             {
+                if (obsWS.IsConnected)
+                    obsWS.Disconnect();
+
                 btnTestOBS.Enabled = true;
                 btnTestOBS.Text = "Test Connection";
             }

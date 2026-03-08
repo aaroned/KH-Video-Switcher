@@ -39,52 +39,39 @@ namespace KH_Video_Switcher
         {
             Clients.Caller.ReceiveOBSStatus(LastOBSStatus);
         }
-        public async Task GetScenes()
+        public Task GetScenes()
         {
             try
             {
-                var obsWS = new OBSWebsocketDotNet.OBSWebsocket();
-                obsWS.ConnectAsync(Properties.Settings.Default.OBSURL, Properties.Settings.Default.OBSPassword);
-
-                var waitCount = 0;
-                while (!obsWS.IsConnected)
-                {
-                    await Task.Delay(500);
-                    waitCount++;
-                    if (waitCount > 10)
-                        return;
+                var obsWS = frmServer.OBSConnection;
+                if (obsWS == null || !obsWS.IsConnected)
+                { 
+                    log.Warn("Request to get scenes failed because OBS is not connected.");
+                    return Task.CompletedTask;
                 }
 
                 var result = BuildEnrichedSceneList(obsWS);
-                obsWS.Disconnect();
-
                 Clients.Caller.ReceiveScenes(result);
+                return Task.CompletedTask;
             }
             catch (Exception exc)
             {
                 log.Error(exc.Message, exc);
+                return Task.CompletedTask;
             }
         }
 
-        public async Task SetScene(string name)
+        public Task SetScene(string name)
         {
             try
             {
                 if (log.IsInfoEnabled) log.Info("Client requesting server to set camera");
-                var obsWS = new OBSWebsocketDotNet.OBSWebsocket();
-                if (log.IsInfoEnabled) log.Info("Connecting to OBS");
-                obsWS.ConnectAsync(Properties.Settings.Default.OBSURL, Properties.Settings.Default.OBSPassword);
 
-                var waitCount = 0;
-                while (!obsWS.IsConnected)
+                var obsWS = frmServer.OBSConnection;
+                if (obsWS == null || !obsWS.IsConnected)
                 {
-                    await Task.Delay(500);
-                    waitCount++;
-                    if (waitCount > 10)
-                    {
-                        if (log.IsInfoEnabled) log.Info("OBS connection timeout");
-                        return;
-                    }
+                    log.Warn("Request to set scene failed because OBS is not connected.");
+                    return Task.CompletedTask;
                 }
 
                 if (log.IsInfoEnabled) log.Info($"Get scene items for: {name}");
@@ -103,13 +90,13 @@ namespace KH_Video_Switcher
                 }
 
                 var result = BuildEnrichedSceneList(obsWS);
-                obsWS.Disconnect();
-
                 Clients.All.ReceiveScenes(result);
+                return Task.CompletedTask;
             }
             catch (Exception exc)
             {
                 log.Error(exc.Message, exc);
+                return Task.CompletedTask;
             }
         }
     }
