@@ -22,13 +22,14 @@ namespace KH_Video_Switcher
     {
         private OBSWebsocketDotNet.OBSWebsocket obsWS;
         private IDisposable server;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private bool _lastOBSStatus = false;
+
+        public static OBSWebsocketDotNet.OBSWebsocket OBSConnection { get; private set; }
 
         // FOR TESTING - Comment out when not testing
         // private frmClient client;
         // END FOR TESTING
-
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private bool _lastOBSStatus = false;
 
         public frmServer()
         {
@@ -40,8 +41,14 @@ namespace KH_Video_Switcher
                 server = WebApp.Start<ServerStartup>("http://+:7004");
 
                 obsWS = new OBSWebsocketDotNet.OBSWebsocket();
+                OBSConnection = obsWS;
                 obsWS.Connected += ObsWS_Connected;
-                obsWS.Disconnected += (sender, e) => UpdateOBSStatus(false);
+
+                obsWS.Disconnected += (sender, e) =>
+                {
+                    if (log.IsInfoEnabled) log.Info("OBS WS Disconnected");
+                    UpdateOBSStatus(false);
+                };
 
                 // Auto reconnect timer
                 var reconnectTimer = new System.Windows.Forms.Timer();
