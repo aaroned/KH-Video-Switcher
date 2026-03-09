@@ -364,3 +364,6 @@ FodyWeavers.xsd
 
 # MacOS Specific
 .DS_Store
+
+# Claude AI - auto-generated files
+.claude/
