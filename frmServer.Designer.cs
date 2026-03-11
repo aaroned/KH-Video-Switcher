@@ -128,6 +128,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuItemFile,
@@ -225,20 +226,23 @@
             // serverStatusMenu
             // 
             this.serverStatusMenu.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.serverStatusMenu.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.serverStatusMenu.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.serverStatusMenu.BackColor = System.Drawing.Color.MistyRose;
+            this.serverStatusMenu.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.serverStatusMenu.ForeColor = System.Drawing.Color.Firebrick;
             this.serverStatusMenu.Image = global::KH_Video_Switcher.Properties.Resources.off_status_8px;
             this.serverStatusMenu.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.serverStatusMenu.Margin = new System.Windows.Forms.Padding(0, 0, 6, 0);
             this.serverStatusMenu.Name = "serverStatusMenu";
-            this.serverStatusMenu.Padding = new System.Windows.Forms.Padding(0, 0, 20, 0);
-            this.serverStatusMenu.Size = new System.Drawing.Size(30, 22);
-            this.serverStatusMenu.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.serverStatusMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.serverStatusMenu.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.serverStatusMenu.Size = new System.Drawing.Size(122, 22);
+            this.serverStatusMenu.Text = "OBS Disconnected";
+            this.serverStatusMenu.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frmServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(468, 140);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);

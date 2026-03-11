@@ -281,11 +281,17 @@ namespace KH_Video_Switcher
                 {
                     serverStatusMenu.Image = Properties.Resources.ok_status_8px;
                     serverStatusMenu.ToolTipText = "OBS Connected";
+                    serverStatusMenu.ForeColor = Color.Green;
+                    serverStatusMenu.Text = "OBS Connected";
+                    serverStatusMenu.BackColor = Color.Honeydew;
                 }
                 else
                 {
                     serverStatusMenu.Image = Properties.Resources.off_status_8px;
                     serverStatusMenu.ToolTipText = "OBS Disconnected";
+                    serverStatusMenu.ForeColor = Color.Firebrick;
+                    serverStatusMenu.Text = "OBS Disconnected";
+                    serverStatusMenu.BackColor = Color.MistyRose;
                 }
 
                 // Update settings form if open

@@ -80,7 +80,10 @@ namespace KH_Video_Switcher
                             ? Properties.Resources.ok_status_8px
                             : Properties.Resources.connecting_status_8px;
                         clientStatusMenu.ToolTipText = connected ? "OBS Connected" : "Server Connected - Waiting for OBS";
-                        this.Text = connected ? "KH Switcher (Zoom)" : "KH Switcher (Zoom) - Waiting for OBS";
+                        clientStatusMenu.ForeColor = connected ? Color.Green : Color.Orange;
+                        clientStatusMenu.Text = connected ? "OBS Connected" : "Server Connected - Waiting for OBS";
+                        clientStatusMenu.BackColor = connected ? Color.Honeydew : Color.Cornsilk;
+                        //this.Text = connected ? "KH Switcher (Zoom)" : "KH Switcher (Zoom) - Waiting for OBS";
 
                         SetSceneButtonsEnabled(connected);
 
@@ -126,7 +129,10 @@ namespace KH_Video_Switcher
                     case Microsoft.AspNet.SignalR.Client.ConnectionState.Reconnecting:
                         clientStatusMenu.Image = Properties.Resources.off_status_8px;
                         clientStatusMenu.ToolTipText = "Connecting to Server...";
-                        this.Text = "KH Switcher (Zoom) - Connecting...";
+                        clientStatusMenu.ForeColor = Color.Firebrick;
+                        clientStatusMenu.Text = "Connecting to Server...";
+                        clientStatusMenu.BackColor = Color.MistyRose;
+                        //this.Text = "KH Switcher (Zoom) - Connecting...";
                         SetSceneButtonsEnabled(false);
                         break;
 
@@ -135,7 +141,10 @@ namespace KH_Video_Switcher
                         hub = null;
                         clientStatusMenu.Image = Properties.Resources.off_status_8px;
                         clientStatusMenu.ToolTipText = "Server Disconnected";
-                        this.Text = "KH Switcher (Zoom) - Disconnected";
+                        clientStatusMenu.ForeColor= Color.Firebrick;
+                        clientStatusMenu.Text = "Server Disconnected";
+                        clientStatusMenu.BackColor = Color.MistyRose;
+                        //this.Text = "KH Switcher (Zoom) - Disconnected";
                         SetSceneButtonsEnabled(false);
                         break;
 

@@ -169,12 +169,17 @@
             // clientStatusMenu
             // 
             this.clientStatusMenu.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.clientStatusMenu.BackColor = System.Drawing.SystemColors.Control;
-            this.clientStatusMenu.ForeColor = System.Drawing.Color.LimeGreen;
+            this.clientStatusMenu.BackColor = System.Drawing.Color.MistyRose;
+            this.clientStatusMenu.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clientStatusMenu.ForeColor = System.Drawing.Color.Firebrick;
             this.clientStatusMenu.Image = global::KH_Video_Switcher.Properties.Resources.off_status_8px;
             this.clientStatusMenu.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.clientStatusMenu.Margin = new System.Windows.Forms.Padding(0, 0, 6, 0);
             this.clientStatusMenu.Name = "clientStatusMenu";
-            this.clientStatusMenu.Size = new System.Drawing.Size(18, 20);
+            this.clientStatusMenu.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.clientStatusMenu.Size = new System.Drawing.Size(131, 20);
+            this.clientStatusMenu.Text = "Server Disconnected";
+            this.clientStatusMenu.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frmClient
             // 
