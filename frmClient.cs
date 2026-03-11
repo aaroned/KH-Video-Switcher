@@ -158,7 +158,7 @@ namespace KH_Video_Switcher
         {
             foreach (Button sceneButton in tableLayoutPanel1.Controls)
             {
-                sceneButton.BackColor = (sceneButton.Text == scenes.CurrentProgramSceneName ? Color.DarkRed : Color.RoyalBlue);
+                sceneButton.BackColor = (sceneButton.Text == scenes.CurrentProgramSceneName ? Color.Firebrick : Color.RoyalBlue);
             }
         }
 
@@ -201,9 +201,10 @@ namespace KH_Video_Switcher
                         sceneButton.Text = scenes.Scenes[i].Name;
                         sceneButton.TextAlign = ContentAlignment.BottomCenter;
                         sceneButton.Click += sceneButtonClick;
-                        sceneButton.BackColor = (scenes.CurrentProgramSceneName == scenes.Scenes[i].Name ? Color.DarkRed : Color.RoyalBlue);
+                        sceneButton.BackColor = (scenes.CurrentProgramSceneName == scenes.Scenes[i].Name ? Color.Firebrick : Color.RoyalBlue);
                         sceneButton.ForeColor = Color.White;
                         sceneButton.FlatStyle = FlatStyle.Flat;
+                        sceneButton.FlatAppearance.BorderSize = 0;
                         sceneButton.Font = new Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         sceneButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
                         sceneButton.Image = scenes.Scenes[i].IsMonitorCapture

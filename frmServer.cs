@@ -150,7 +150,7 @@ namespace KH_Video_Switcher
                 JwLibHelper.BringToFront();
                 ZoomLibHelper.Minimize();
                 OBSHub.IsCurrentlyZoom = false;
-                btnJWLibrary.BackColor = Color.DarkRed;
+                btnJWLibrary.BackColor = Color.Firebrick;
                 btnZoom.BackColor = Color.RoyalBlue;
 
                 if (Properties.Settings.Default.onlyMView)
@@ -176,7 +176,7 @@ namespace KH_Video_Switcher
                 ZoomLibHelper.Minimize();
                 OBSHub.IsCurrentlyZoom = false;
                 btnJWLibrary.BackColor = Color.RoyalBlue;
-                btnOnlyM.BackColor = Color.DarkRed;
+                btnOnlyM.BackColor = Color.Firebrick;
                 btnZoom.BackColor = Color.RoyalBlue;
             }
             catch (Exception exc)
@@ -230,7 +230,7 @@ namespace KH_Video_Switcher
                 OBSHub.IsCurrentlyZoom = true;
                 ZoomLibHelper.BringToFront();
                 btnJWLibrary.BackColor = Color.RoyalBlue;
-                btnZoom.BackColor = Color.DarkRed;
+                btnZoom.BackColor = Color.Firebrick;
             }
             catch (Exception exc)
             {

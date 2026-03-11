@@ -31,21 +31,21 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmServer));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.menuItemFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.menuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnZoom = new System.Windows.Forms.Button();
             this.btnOnlyM = new System.Windows.Forms.Button();
             this.btnJWLibrary = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuItemFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuItemExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemLog = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemWiki = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.serverStatusMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -61,11 +61,70 @@
             this.tableLayoutPanel1.Controls.Add(this.btnJWLibrary, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(468, 116);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // btnZoom
+            // 
+            this.btnZoom.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnZoom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnZoom.FlatAppearance.BorderSize = 0;
+            this.btnZoom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnZoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnZoom.ForeColor = System.Drawing.Color.White;
+            this.btnZoom.Image = global::KH_Video_Switcher.Properties.Resources.iconZoom;
+            this.btnZoom.Location = new System.Drawing.Point(314, 3);
+            this.btnZoom.Name = "btnZoom";
+            this.btnZoom.Size = new System.Drawing.Size(148, 107);
+            this.btnZoom.TabIndex = 2;
+            this.btnZoom.Text = "Zoom";
+            this.btnZoom.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnZoom.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnZoom.UseVisualStyleBackColor = false;
+            this.btnZoom.Click += new System.EventHandler(this.btnZoom_Click);
+            // 
+            // btnOnlyM
+            // 
+            this.btnOnlyM.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnOnlyM.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnOnlyM.FlatAppearance.BorderSize = 0;
+            this.btnOnlyM.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOnlyM.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOnlyM.ForeColor = System.Drawing.Color.White;
+            this.btnOnlyM.Image = global::KH_Video_Switcher.Properties.Resources.iconOnlyM;
+            this.btnOnlyM.Location = new System.Drawing.Point(160, 3);
+            this.btnOnlyM.Name = "btnOnlyM";
+            this.btnOnlyM.Size = new System.Drawing.Size(148, 107);
+            this.btnOnlyM.TabIndex = 1;
+            this.btnOnlyM.Text = "OnlyM";
+            this.btnOnlyM.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnOnlyM.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnOnlyM.UseVisualStyleBackColor = false;
+            this.btnOnlyM.Click += new System.EventHandler(this.btnOnlyM_Click);
+            // 
+            // btnJWLibrary
+            // 
+            this.btnJWLibrary.BackColor = System.Drawing.Color.Firebrick;
+            this.btnJWLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnJWLibrary.FlatAppearance.BorderSize = 0;
+            this.btnJWLibrary.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnJWLibrary.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnJWLibrary.ForeColor = System.Drawing.Color.White;
+            this.btnJWLibrary.Image = global::KH_Video_Switcher.Properties.Resources.iconJW;
+            this.btnJWLibrary.Location = new System.Drawing.Point(6, 3);
+            this.btnJWLibrary.Name = "btnJWLibrary";
+            this.btnJWLibrary.Size = new System.Drawing.Size(148, 107);
+            this.btnJWLibrary.TabIndex = 0;
+            this.btnJWLibrary.Text = "JW Library";
+            this.btnJWLibrary.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnJWLibrary.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnJWLibrary.UseVisualStyleBackColor = false;
+            this.btnJWLibrary.Click += new System.EventHandler(this.btnJWLibrary_Click);
             // 
             // menuStrip1
             // 
@@ -93,75 +152,6 @@
             this.menuItemFile.Size = new System.Drawing.Size(37, 22);
             this.menuItemFile.Text = "File";
             // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
-            // 
-            // menuItemHelp
-            // 
-            this.menuItemHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuItemLog,
-            this.menuItemWiki,
-            this.menuItemAbout});
-            this.menuItemHelp.Name = "menuItemHelp";
-            this.menuItemHelp.Size = new System.Drawing.Size(44, 22);
-            this.menuItemHelp.Text = "Help";
-            // 
-            // btnZoom
-            // 
-            this.btnZoom.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnZoom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnZoom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnZoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnZoom.ForeColor = System.Drawing.Color.White;
-            this.btnZoom.Image = global::KH_Video_Switcher.Properties.Resources.iconZoom;
-            this.btnZoom.Location = new System.Drawing.Point(315, 3);
-            this.btnZoom.Name = "btnZoom";
-            this.btnZoom.Size = new System.Drawing.Size(150, 110);
-            this.btnZoom.TabIndex = 2;
-            this.btnZoom.Text = "Zoom";
-            this.btnZoom.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnZoom.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnZoom.UseVisualStyleBackColor = false;
-            this.btnZoom.Click += new System.EventHandler(this.btnZoom_Click);
-            // 
-            // btnOnlyM
-            // 
-            this.btnOnlyM.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnOnlyM.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnOnlyM.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOnlyM.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOnlyM.ForeColor = System.Drawing.Color.White;
-            this.btnOnlyM.Image = global::KH_Video_Switcher.Properties.Resources.iconOnlyM;
-            this.btnOnlyM.Location = new System.Drawing.Point(159, 3);
-            this.btnOnlyM.Name = "btnOnlyM";
-            this.btnOnlyM.Size = new System.Drawing.Size(150, 110);
-            this.btnOnlyM.TabIndex = 1;
-            this.btnOnlyM.Text = "OnlyM";
-            this.btnOnlyM.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnOnlyM.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnOnlyM.UseVisualStyleBackColor = false;
-            this.btnOnlyM.Click += new System.EventHandler(this.btnOnlyM_Click);
-            // 
-            // btnJWLibrary
-            // 
-            this.btnJWLibrary.BackColor = System.Drawing.Color.DarkRed;
-            this.btnJWLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnJWLibrary.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnJWLibrary.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnJWLibrary.ForeColor = System.Drawing.Color.White;
-            this.btnJWLibrary.Image = global::KH_Video_Switcher.Properties.Resources.iconJW;
-            this.btnJWLibrary.Location = new System.Drawing.Point(3, 3);
-            this.btnJWLibrary.Name = "btnJWLibrary";
-            this.btnJWLibrary.Size = new System.Drawing.Size(150, 110);
-            this.btnJWLibrary.TabIndex = 0;
-            this.btnJWLibrary.Text = "JW Library";
-            this.btnJWLibrary.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnJWLibrary.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnJWLibrary.UseVisualStyleBackColor = false;
-            this.btnJWLibrary.Click += new System.EventHandler(this.btnJWLibrary_Click);
-            // 
             // menuItemUpdate
             // 
             this.menuItemUpdate.Image = global::KH_Video_Switcher.Properties.Resources.refresh_square;
@@ -180,6 +170,11 @@
             this.menuItemSettings.Text = "Settings";
             this.menuItemSettings.Click += new System.EventHandler(this.menuItemSettings_Click);
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            // 
             // menuItemExit
             // 
             this.menuItemExit.Image = global::KH_Video_Switcher.Properties.Resources.close_square;
@@ -190,12 +185,22 @@
             this.menuItemExit.Text = "Exit";
             this.menuItemExit.Click += new System.EventHandler(this.menuItemExit_Click);
             // 
+            // menuItemHelp
+            // 
+            this.menuItemHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemLog,
+            this.menuItemWiki,
+            this.menuItemAbout});
+            this.menuItemHelp.Name = "menuItemHelp";
+            this.menuItemHelp.Size = new System.Drawing.Size(44, 22);
+            this.menuItemHelp.Text = "Help";
+            // 
             // menuItemLog
             // 
             this.menuItemLog.Image = global::KH_Video_Switcher.Properties.Resources.document_text;
             this.menuItemLog.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.menuItemLog.Name = "menuItemLog";
-            this.menuItemLog.Size = new System.Drawing.Size(180, 22);
+            this.menuItemLog.Size = new System.Drawing.Size(135, 22);
             this.menuItemLog.Text = "View Log";
             this.menuItemLog.Click += new System.EventHandler(this.menuItemLog_Click);
             // 
@@ -204,7 +209,7 @@
             this.menuItemWiki.Image = global::KH_Video_Switcher.Properties.Resources.question_circle_16;
             this.menuItemWiki.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.menuItemWiki.Name = "menuItemWiki";
-            this.menuItemWiki.Size = new System.Drawing.Size(180, 22);
+            this.menuItemWiki.Size = new System.Drawing.Size(135, 22);
             this.menuItemWiki.Text = "Online Wiki";
             this.menuItemWiki.Click += new System.EventHandler(this.menuItemWiki_Click);
             // 
@@ -213,7 +218,7 @@
             this.menuItemAbout.Image = global::KH_Video_Switcher.Properties.Resources.info_circle;
             this.menuItemAbout.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.menuItemAbout.Name = "menuItemAbout";
-            this.menuItemAbout.Size = new System.Drawing.Size(180, 22);
+            this.menuItemAbout.Size = new System.Drawing.Size(135, 22);
             this.menuItemAbout.Text = "About";
             this.menuItemAbout.Click += new System.EventHandler(this.menuItemAbout_Click);
             // 

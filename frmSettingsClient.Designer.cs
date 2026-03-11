@@ -81,7 +81,7 @@
             this.tabGeneral.Controls.Add(this.groupView);
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabGeneral.Name = "tabGeneral";
-            this.tabGeneral.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabGeneral.Padding = new System.Windows.Forms.Padding(3);
             this.tabGeneral.Size = new System.Drawing.Size(352, 332);
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General";
@@ -178,7 +178,7 @@
             this.tabServerConnection.Controls.Add(this.groupServer);
             this.tabServerConnection.Location = new System.Drawing.Point(4, 22);
             this.tabServerConnection.Name = "tabServerConnection";
-            this.tabServerConnection.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabServerConnection.Padding = new System.Windows.Forms.Padding(3);
             this.tabServerConnection.Size = new System.Drawing.Size(352, 332);
             this.tabServerConnection.TabIndex = 1;
             this.tabServerConnection.Text = "Server Connection";
@@ -252,7 +252,7 @@
             this.tabUpdate.Controls.Add(this.labelVersion);
             this.tabUpdate.Location = new System.Drawing.Point(4, 22);
             this.tabUpdate.Name = "tabUpdate";
-            this.tabUpdate.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabUpdate.Padding = new System.Windows.Forms.Padding(3);
             this.tabUpdate.Size = new System.Drawing.Size(352, 332);
             this.tabUpdate.TabIndex = 2;
             this.tabUpdate.Text = "Update";
@@ -329,6 +329,7 @@
             this.ClientSize = new System.Drawing.Size(384, 411);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.tabServer);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(400, 450);
