@@ -1,7 +1,15 @@
 ***New Version ***
-    v2.0.0.5 
+    v0.0.0.0
 
-What's Fixed
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+This is not a real changelog. This is
+for testing purposes only. Please see
+the GitHub Release section for updates
+at this time. Updating via this method
+will install v2.0.0.5
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+What's Fixed?
 - Zoom Workplace version 6.7.0 introduced a change
 that broke the Zoom button. This update restores 
 that functionality for version 6.7.0 and newer.
