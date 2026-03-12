@@ -79,7 +79,7 @@ namespace KH_Video_Switcher
                         clientStatusMenu.Image = connected
                             ? Properties.Resources.ok_status_8px
                             : Properties.Resources.connecting_status_8px;
-                        clientStatusMenu.ToolTipText = connected ? "OBS Connected" : "Server Connected - Waiting for OBS";
+                        clientStatusMenu.ToolTipText = connected ? "OBS Connected" : "Connected to the server\nNot connected to OBS\nEnsure OBS is running.\nSee Wiki for more help.";
                         clientStatusMenu.ForeColor = connected ? Color.Green : Color.Orange;
                         clientStatusMenu.Text = connected ? "OBS Connected" : "Server Connected - Waiting for OBS";
                         clientStatusMenu.BackColor = connected ? Color.Honeydew : Color.Cornsilk;
@@ -104,8 +104,11 @@ namespace KH_Video_Switcher
                 BeginInvoke((MethodInvoker)(() =>
                 {
                     clientStatusMenu.Image = Properties.Resources.connecting_status_8px;
-                    clientStatusMenu.ToolTipText = "Server Connected - Waiting for OBS";
-                    this.Text = "KH Switcher (Zoom) - Waiting for OBS...";
+                    clientStatusMenu.ToolTipText = "Connected to the server\nNot connected to OBS\nEnsure OBS is running.\nSee Wiki for more help.";
+                    clientStatusMenu.ForeColor = Color.Orange;
+                    clientStatusMenu.Text = "Server Connected - Waiting for OBS";
+                    clientStatusMenu.BackColor = Color.Cornsilk;
+                    //this.Text = "KH Switcher (Zoom) - Waiting for OBS...";
                 }));
 
                 await hub.Invoke("GetOBSStatus");
@@ -128,11 +131,10 @@ namespace KH_Video_Switcher
                     // case Microsoft.AspNet.SignalR.Client.ConnectionState.Connecting:
                     case Microsoft.AspNet.SignalR.Client.ConnectionState.Reconnecting:
                         clientStatusMenu.Image = Properties.Resources.off_status_8px;
-                        clientStatusMenu.ToolTipText = "Connecting to Server...";
+                        clientStatusMenu.ToolTipText = "KH Switcher (Zoom) is attempting to connect...";
                         clientStatusMenu.ForeColor = Color.Firebrick;
                         clientStatusMenu.Text = "Connecting to Server...";
                         clientStatusMenu.BackColor = Color.MistyRose;
-                        //this.Text = "KH Switcher (Zoom) - Connecting...";
                         SetSceneButtonsEnabled(false);
                         break;
 
@@ -140,11 +142,10 @@ namespace KH_Video_Switcher
                     case Microsoft.AspNet.SignalR.Client.ConnectionState.Disconnected:
                         hub = null;
                         clientStatusMenu.Image = Properties.Resources.off_status_8px;
-                        clientStatusMenu.ToolTipText = "Server Disconnected";
+                        clientStatusMenu.ToolTipText = "Server Disconnected\nEnsure KH Switcher (Media) is running.\nSee Wiki for more help.";
                         clientStatusMenu.ForeColor= Color.Firebrick;
                         clientStatusMenu.Text = "Server Disconnected";
                         clientStatusMenu.BackColor = Color.MistyRose;
-                        //this.Text = "KH Switcher (Zoom) - Disconnected";
                         SetSceneButtonsEnabled(false);
                         break;
 
@@ -173,14 +174,20 @@ namespace KH_Video_Switcher
 
         private async void sceneButtonClick(object sender, EventArgs e)
         {
+            var btn = (Button)sender;
+            var lastClick = (DateTime)btn.Tag;
+            var now = DateTime.UtcNow;
+
+            if ((now - lastClick).TotalMilliseconds < 600) return; // Drop rapid/double clicks
+            btn.Tag = now;
+
             if (connection== null || connection.State !=Microsoft.AspNet.SignalR.Client.ConnectionState.Connected)
             {                 
                 log.Warn("Scene button pressed but SignalR connection is not ready");
                 return;
             }
-            this.TopLevel = true;
-            // this.TopMost = true; Now handled in ApplySettings to avoid issues with the settings form
 
+            this.TopLevel = true;
             var scene = ((Button)sender).Text;
             scenes.CurrentProgramSceneName = scene;
             await SetScene(scene);
@@ -209,6 +216,7 @@ namespace KH_Video_Switcher
                         sceneButton.Dock = DockStyle.Fill;
                         sceneButton.Text = scenes.Scenes[i].Name;
                         sceneButton.TextAlign = ContentAlignment.BottomCenter;
+                        sceneButton.Tag = DateTime.MinValue;
                         sceneButton.Click += sceneButtonClick;
                         sceneButton.BackColor = (scenes.CurrentProgramSceneName == scenes.Scenes[i].Name ? Color.Firebrick : Color.RoyalBlue);
                         sceneButton.ForeColor = Color.White;

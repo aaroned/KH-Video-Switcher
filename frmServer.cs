@@ -77,36 +77,29 @@ namespace KH_Video_Switcher
         private void ObsWS_Connected(object sender, EventArgs e)
         {
             UpdateOBSStatus(true);
-            try
+            if (log.IsInfoEnabled) log.Info("OBS WS Connected");
+
+            BeginInvoke((MethodInvoker)(async () =>
             {
-                if (log.IsInfoEnabled) log.Info("OBS WS Connected");
-                BeginInvoke((MethodInvoker)(() =>
+                await Task.Delay(500);
+                try
                 {
-                    try
+                    var status = obsWS.GetVirtualCamStatus();
+                    if (!status.IsActive)
                     {
-                        var status = obsWS.GetVirtualCamStatus();
-                        if (!status.IsActive)
-                        {
-                            if (log.IsInfoEnabled) log.Info("OBS VirtualCam not started. Starting.");
-                            obsWS.StartVirtualCam();
-                        }
-                        else
-                        {
-                            if (log.IsInfoEnabled) log.Info("OBS VirtualCam already started.");
-                        }
+                        if (log.IsInfoEnabled) log.Info("OBS VirtualCam not started. Starting.");
+                        obsWS.StartVirtualCam();
                     }
-                    catch (Exception exc)
+                    else
                     {
-                        log.Error(exc.Message, exc);
-                        throw;
+                        if (log.IsInfoEnabled) log.Info("OBS VirtualCam already started.");
                     }
-                }));
-            }
-            catch (Exception exc)
-            {
-                log.Error(exc.Message, exc);
-                throw;
-            }
+                }
+                catch (Exception exc)
+                {
+                    log.Error(exc.Message, exc);
+                }
+            }));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -288,7 +281,7 @@ namespace KH_Video_Switcher
                 else
                 {
                     serverStatusMenu.Image = Properties.Resources.off_status_8px;
-                    serverStatusMenu.ToolTipText = "OBS Disconnected";
+                    serverStatusMenu.ToolTipText = "OBS Disconnected\nEnsure OBS is running.\nSee Wiki for more help.";
                     serverStatusMenu.ForeColor = Color.Firebrick;
                     serverStatusMenu.Text = "OBS Disconnected";
                     serverStatusMenu.BackColor = Color.MistyRose;

@@ -237,6 +237,7 @@
             this.serverStatusMenu.Size = new System.Drawing.Size(122, 22);
             this.serverStatusMenu.Text = "OBS Disconnected";
             this.serverStatusMenu.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.serverStatusMenu.ToolTipText = "OBS Disconnected\r\nEnsure OBS is running.\r\nSee Wiki for more help.";
             // 
             // frmServer
             // 

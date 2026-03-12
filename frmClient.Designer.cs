@@ -180,6 +180,8 @@
             this.clientStatusMenu.Size = new System.Drawing.Size(131, 20);
             this.clientStatusMenu.Text = "Server Disconnected";
             this.clientStatusMenu.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.clientStatusMenu.ToolTipText = "Server Disconnected\r\nEnsure KH Switcher (Media) is running.\r\nSee Wiki for more he" +
+    "lp.";
             // 
             // frmClient
             // 
