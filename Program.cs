@@ -61,8 +61,8 @@ namespace KH_Video_Switcher
 
             log.Info("Starting migration to unified settings");
 
-            var serverConfigPath = @"C:\Program Files (x86)\KH Switcher\KH Switcher Media\KH Switcher.exe.config";
-            var clientConfigPath = @"C:\Program Files (x86)\KH Switcher\KH Switcher Zoom\KH Switcher.exe.config";
+            var serverConfigPath = Path.Combine(Application.StartupPath, "migration_server.config");
+            var clientConfigPath = Path.Combine(Application.StartupPath, "migration_client.config");
 
             bool serverFound = File.Exists(serverConfigPath);
             bool clientFound = File.Exists(clientConfigPath);

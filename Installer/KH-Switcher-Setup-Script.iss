@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "KH Switcher"
-#define MyAppVersion GetFileVersion("..\bin\Release\KH Switcher.exe")
+#define MyAppVersion GetVersionNumbersString("..\bin\Release\KH Switcher.exe")
 #define MyAppPublisher "KH Switcher"
 #define MyAppURL "https://github.com/aaroned/KH-Video-Switcher"
 
@@ -73,13 +73,15 @@ begin
     // Copy old server config if it exists, so migration can read it after
     // the KH Switcher Media directory is deleted by [InstallDelete]
     if FileExists(InstallDir + '\KH Switcher Media\KH Switcher.exe.config') then
-      FileCopy(InstallDir + '\KH Switcher Media\KH Switcher.exe.config',
-               InstallDir + '\migration_server.config', False);
+      CopyFile(InstallDir + '\KH Switcher Media\KH Switcher.exe.config',
+         ExpandConstant('{app}') + '\migration_server.config', False);
+
+
 
     // Copy old client config if it exists, so migration can read it after
     // the KH Switcher Zoom directory is deleted by [InstallDelete]
     if FileExists(InstallDir + '\KH Switcher Zoom\KH Switcher.exe.config') then
-      FileCopy(InstallDir + '\KH Switcher Zoom\KH Switcher.exe.config',
-               InstallDir + '\migration_client.config', False);
+      CopyFile(InstallDir + '\KH Switcher Zoom\KH Switcher.exe.config',
+         ExpandConstant('{app}') + '\migration_client.config', False);
   end;
 end;
