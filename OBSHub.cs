@@ -21,7 +21,7 @@ namespace KH_Video_Switcher
             return new EnrichedSceneList
             {
                 CurrentProgramSceneName = result.CurrentProgramSceneName,
-                Scenes = result.Scenes.Select(scene => new EnrichedScene
+                Scenes = result.Scenes.AsEnumerable().Reverse().Select(scene => new EnrichedScene
                 {
                     Name = scene.Name,
                     IsMonitorCapture = obsWS.GetSceneItemList(scene.Name)
