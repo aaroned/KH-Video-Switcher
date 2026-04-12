@@ -245,7 +245,7 @@ namespace KH_Video_Switcher
                 else
                 {
                     scenes = data;
-                    UpdateSceneButtonColors();
+                    UpdateSceneButtonsForZoom(_isCurrentlyZoom);
                 }
             }));
         }
