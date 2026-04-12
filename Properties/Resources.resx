@@ -118,53 +118,44 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="close-square" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\close-square-red-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="refresh-square" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\refresh-square-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OnlyMKHIcon-62x40" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\OnlyMKHIcon-62x40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ok-status-8px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\ok-status-8px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="iconJW" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\iconJW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="iconZoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\iconZoom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="connecting-status-8px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\connecting-status-8px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="question-circle-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\question-circle-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="JWLibrary" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\JWKHIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="info-circle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\info-circle-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="off-status-8px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\off-status-8px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\settings-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="close-square" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\close-square-red-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Zoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\ZoomKHIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="iconMedia" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\iconMedia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="off-status" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\off-status.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OnlyMKHIcon-62x40" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\OnlyMKHIcon-62x40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="refresh-circle-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\refresh-circle-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="document-text" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\document-text-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Cam" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\Cam.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ok-status-8px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\ok-status-8px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="iconCam" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\iconCam.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="off-status-8px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\off-status-8px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ZoomKHIcon-62x40" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\ZoomKHIcon-62x40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="refresh-square" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\refresh-square-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="iconOnlyM" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\iconOnlyM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -172,22 +163,31 @@
   <data name="GitHub-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\GitHub-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="connecting-status-8px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\connecting-status-8px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Zoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\ZoomKHIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="refresh-circle-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\refresh-circle-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="JWKHIcon-62x40" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\JWKHIcon-62x40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="off-status" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\off-status.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ZoomKHIcon-62x40" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\ZoomKHIcon-62x40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Icon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="iconJW" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\iconJW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cam" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\Cam.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="iconZoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\iconZoom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="info-circle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\info-circle-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="iconCam" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\iconCam.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="JWLibrary" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\JWKHIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
