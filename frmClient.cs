@@ -25,6 +25,7 @@ namespace KH_Video_Switcher
         private HubConnection connection;
         private EnrichedSceneList scenes;
         private bool _isCurrentlyZoom;
+        private bool _isOBSConnected;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public frmClient()
@@ -77,6 +78,7 @@ namespace KH_Video_Switcher
                 {
                     BeginInvoke((MethodInvoker)(() =>
                     {
+                        _isOBSConnected = connected;
                         clientStatusMenu.Image = connected
                             ? Properties.Resources.ok_status_8px
                             : Properties.Resources.connecting_status_8px;
@@ -273,10 +275,18 @@ namespace KH_Video_Switcher
                 if (scene == null) continue;
 
                 bool isRestricted = scene.IsMonitorCapture || scene.IsPictureInPicture;
-                btn.Enabled = !isZoom || !isRestricted;
+                btn.Enabled = _isOBSConnected && (!isZoom || !isRestricted);
+
+                if (!btn.Enabled)
+                    btn.BackColor = Color.LightGray; 
             }
 
-            UpdateSceneButtonColors(); // Restore correct colours for enabled buttons
+            // Only restore colours on enabled buttons
+            foreach (Button btn in tableLayoutPanel1.Controls)
+            {
+                if (btn.Enabled)
+                    btn.BackColor = (btn.Text == scenes.CurrentProgramSceneName ? Color.Firebrick : Color.RoyalBlue);
+            }
         }
 
         private void menuItemExit_Click(object sender, EventArgs e)
