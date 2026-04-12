@@ -142,7 +142,7 @@ namespace KH_Video_Switcher
                 if (log.IsInfoEnabled) log.Info("JW library button clicked.");
                 JwLibHelper.BringToFront();
                 ZoomLibHelper.Minimize();
-                OBSHub.IsCurrentlyZoom = false;
+                OBSHub.BroadcastZoomStatus(false);
                 btnJWLibrary.BackColor = Color.Firebrick;
                 btnZoom.BackColor = Color.RoyalBlue;
 
@@ -167,7 +167,7 @@ namespace KH_Video_Switcher
                 if (log.IsInfoEnabled) log.Info("OnlyM button clicked.");
                 OnlyMLibHelper.BringToFront();
                 ZoomLibHelper.Minimize();
-                OBSHub.IsCurrentlyZoom = false;
+                OBSHub.BroadcastZoomStatus(false);
                 btnJWLibrary.BackColor = Color.RoyalBlue;
                 btnOnlyM.BackColor = Color.Firebrick;
                 btnZoom.BackColor = Color.RoyalBlue;
@@ -220,7 +220,7 @@ namespace KH_Video_Switcher
                     btnOnlyM.BackColor = Color.RoyalBlue;
                 }
 
-                OBSHub.IsCurrentlyZoom = true;
+                OBSHub.BroadcastZoomStatus(true);
                 ZoomLibHelper.BringToFront();
                 btnJWLibrary.BackColor = Color.RoyalBlue;
                 btnZoom.BackColor = Color.Firebrick;

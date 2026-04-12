@@ -21,11 +21,17 @@ namespace KH_Video_Switcher
             return new EnrichedSceneList
             {
                 CurrentProgramSceneName = result.CurrentProgramSceneName,
-                Scenes = result.Scenes.AsEnumerable().Reverse().Select(scene => new EnrichedScene
+                Scenes = result.Scenes.AsEnumerable().Reverse().Select(scene =>
                 {
-                    Name = scene.Name,
-                    IsMonitorCapture = obsWS.GetSceneItemList(scene.Name)
-                                            .Any(m => m.SourceKind == "monitor_capture")
+                    var items = obsWS.GetSceneItemList(scene.Name);
+                    bool hasCamera = items.Any(m => m.SourceKind == "dshow_input");
+                    bool hasMonitor = items.Any(m => m.SourceKind == "monitor_capture");
+                    return new EnrichedScene
+                    {
+                        Name = scene.Name,
+                        IsMonitorCapture = hasMonitor && !hasCamera,
+                        IsPictureInPicture = hasCamera && hasMonitor
+                    };
                 }).ToList()
             };
         }
@@ -83,7 +89,7 @@ namespace KH_Video_Switcher
                     obsWS.SetCurrentProgramScene(name);
                 }
 
-                if (sceneItemList.Any(m => m.SourceKind == "dshow_input")) //if a camera scene remember the history
+                if (sceneItemList.Any(m => m.SourceKind == "dshow_input") && !sceneItemList.Any(m => m.SourceKind == "monitor_capture")) //if a pure camera scene (no monitor capture), remember the history
                 {
                     if (log.IsInfoEnabled) log.Info("Save last selected camera.");
                     LastSelectedCamera = name;
@@ -99,11 +105,23 @@ namespace KH_Video_Switcher
                 return Task.CompletedTask;
             }
         }
+        public static void BroadcastZoomStatus(bool isZoom)
+        {
+            IsCurrentlyZoom = isZoom;
+            var hub = GlobalHost.ConnectionManager.GetHubContext("OBSHub");
+            hub.Clients.All.ReceiveZoomStatus(isZoom);
+        }
+
+        public void GetZoomStatus()
+        {
+            Clients.Caller.ReceiveZoomStatus(IsCurrentlyZoom);
+        }
     }
     public class EnrichedScene
     {
         public string Name { get; set; }
         public bool IsMonitorCapture { get; set; }
+        public bool IsPictureInPicture { get; set; }
     }
 
     public class EnrichedSceneList

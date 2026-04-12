@@ -24,6 +24,7 @@ namespace KH_Video_Switcher
         private IHubProxy hub;
         private HubConnection connection;
         private EnrichedSceneList scenes;
+        private bool _isCurrentlyZoom;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public frmClient()
@@ -94,6 +95,10 @@ namespace KH_Video_Switcher
                         }
                     }));
                 });
+                hub.On<bool>("ReceiveZoomStatus", isZoom =>
+                {
+                    BeginInvoke((MethodInvoker)(() => UpdateSceneButtonsForZoom(isZoom)));
+                });
 
                 var thisConnection = connection; // Capture the current connection instance for the event handler
                 connection.StateChanged += stateChange => Connection_StateChanged(stateChange, thisConnection);
@@ -112,6 +117,7 @@ namespace KH_Video_Switcher
                 }));
 
                 await hub.Invoke("GetOBSStatus");
+                await hub.Invoke("GetZoomStatus");
                 await GetScenes();
             }
             catch (Exception ex)
@@ -224,12 +230,15 @@ namespace KH_Video_Switcher
                         sceneButton.FlatAppearance.BorderSize = 0;
                         sceneButton.Font = new Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         sceneButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-                        sceneButton.Image = scenes.Scenes[i].IsMonitorCapture
-                             ? global::KH_Video_Switcher.Properties.Resources.iconMedia
-                             : global::KH_Video_Switcher.Properties.Resources.iconCam;
+                        sceneButton.Image = scenes.Scenes[i].IsPictureInPicture
+                            ? global::KH_Video_Switcher.Properties.Resources.iconPiP
+                            : scenes.Scenes[i].IsMonitorCapture
+                                ? global::KH_Video_Switcher.Properties.Resources.iconMedia
+                                : global::KH_Video_Switcher.Properties.Resources.iconCam;
                         tableLayoutPanel1.Controls.Add(sceneButton, i, 0);
                     }
 
+                    UpdateSceneButtonsForZoom(_isCurrentlyZoom);
                 }
                 else
                 {
@@ -244,14 +253,30 @@ namespace KH_Video_Switcher
             {
                 sceneButton.Enabled = enabled;
                 if (!enabled)
-                {
                     sceneButton.BackColor = Color.LightGray;
-                }
             }
 
-            // Restore correct colours when re-enabling
             if (enabled && scenes != null)
+            {
                 UpdateSceneButtonColors();
+                UpdateSceneButtonsForZoom(_isCurrentlyZoom); // Re-apply zoom restrictions
+            }
+        }
+        private void UpdateSceneButtonsForZoom(bool isZoom)
+        {
+            _isCurrentlyZoom = isZoom;
+            if (scenes == null) return;
+
+            foreach (Button btn in tableLayoutPanel1.Controls)
+            {
+                var scene = scenes.Scenes.FirstOrDefault(s => s.Name == btn.Text);
+                if (scene == null) continue;
+
+                bool isRestricted = scene.IsMonitorCapture || scene.IsPictureInPicture;
+                btn.Enabled = !isZoom || !isRestricted;
+            }
+
+            UpdateSceneButtonColors(); // Restore correct colours for enabled buttons
         }
 
         private void menuItemExit_Click(object sender, EventArgs e)
