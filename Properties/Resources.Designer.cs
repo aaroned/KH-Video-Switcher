@@ -163,6 +163,16 @@ namespace KH_Video_Switcher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap iconPiP {
+            get {
+                object obj = ResourceManager.GetObject("iconPiP", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap iconZoom {
             get {
                 object obj = ResourceManager.GetObject("iconZoom", resourceCulture);

@@ -10,9 +10,9 @@ namespace KH_Video_Switcher
 {
     public class OBSHub : Hub
     {
-        public static bool IsCurrentlyZoom;
-        public static bool LastOBSStatus { get; set; } = false;
-        public static string LastSelectedCamera;
+        public static volatile bool IsCurrentlyZoom;
+        public static volatile bool LastOBSStatus;
+        public static volatile string LastSelectedCamera;
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public static EnrichedSceneList BuildEnrichedSceneList(OBSWebsocketDotNet.OBSWebsocket obsWS)
@@ -21,11 +21,17 @@ namespace KH_Video_Switcher
             return new EnrichedSceneList
             {
                 CurrentProgramSceneName = result.CurrentProgramSceneName,
-                Scenes = result.Scenes.Select(scene => new EnrichedScene
+                Scenes = result.Scenes.AsEnumerable().Reverse().Select(scene =>
                 {
-                    Name = scene.Name,
-                    IsMonitorCapture = obsWS.GetSceneItemList(scene.Name)
-                                            .Any(m => m.SourceKind == "monitor_capture")
+                    var items = obsWS.GetSceneItemList(scene.Name);
+                    bool hasCamera = items.Any(m => m.SourceKind == "dshow_input");
+                    bool hasMonitor = items.Any(m => m.SourceKind == "monitor_capture");
+                    return new EnrichedScene
+                    {
+                        Name = scene.Name,
+                        IsMonitorCapture = hasMonitor && !hasCamera,
+                        IsPictureInPicture = hasCamera && hasMonitor
+                    };
                 }).ToList()
             };
         }
@@ -83,7 +89,7 @@ namespace KH_Video_Switcher
                     obsWS.SetCurrentProgramScene(name);
                 }
 
-                if (sceneItemList.Any(m => m.SourceKind == "dshow_input")) //if a camera scene remember the history
+                if (sceneItemList.Any(m => m.SourceKind == "dshow_input") && !sceneItemList.Any(m => m.SourceKind == "monitor_capture")) //if a pure camera scene (no monitor capture), remember the history
                 {
                     if (log.IsInfoEnabled) log.Info("Save last selected camera.");
                     LastSelectedCamera = name;
@@ -99,11 +105,23 @@ namespace KH_Video_Switcher
                 return Task.CompletedTask;
             }
         }
+        public static void BroadcastZoomStatus(bool isZoom)
+        {
+            IsCurrentlyZoom = isZoom;
+            var hub = GlobalHost.ConnectionManager.GetHubContext("OBSHub");
+            hub.Clients.All.ReceiveZoomStatus(isZoom);
+        }
+
+        public void GetZoomStatus()
+        {
+            Clients.Caller.ReceiveZoomStatus(IsCurrentlyZoom);
+        }
     }
     public class EnrichedScene
     {
         public string Name { get; set; }
         public bool IsMonitorCapture { get; set; }
+        public bool IsPictureInPicture { get; set; }
     }
 
     public class EnrichedSceneList

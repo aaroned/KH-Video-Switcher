@@ -31,6 +31,24 @@ namespace KH_Video_Switcher
 
             log.Info($"Starting in {(isClientMode ? "client" : "server")} mode");
 
+            // Prevent multiple server instances
+            System.Threading.Mutex serverMutex = null;
+            if (!isClientMode)
+            {
+                bool createdNew;
+                serverMutex = new System.Threading.Mutex(true, "KHVideoSwitcher_ServerInstance", out createdNew);
+                if (!createdNew)
+                {
+                    serverMutex.Dispose();
+                    MessageBox.Show(
+                        "KH Video Switcher (Media) is already running.\n\nOnly one instance can be open at a time.",
+                        "KH Switcher (Media) Already Running",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    return;
+                }
+            }
+
             // AutoUpdater configuration
             AutoUpdater.ShowSkipButton = true;
             AutoUpdater.ShowRemindLaterButton = true;
@@ -42,17 +60,28 @@ namespace KH_Video_Switcher
             // Check for updates on startup - only if first instance
             bool isFirstInstance = Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length == 1;
 
-            if (Settings.Default.CheckForUpdatesOnStartup && isFirstInstance)
+            if (Properties.Settings.Default.CheckForUpdatesOnStartup && isFirstInstance)
             {
-                Task.Delay(5000).ContinueWith(t => // Delay check to allow form to load
+                Task.Delay(5000).ContinueWith(t =>
                 {
-                    Application.OpenForms[0].Invoke((Action)(() =>
-                        AutoUpdater.Start("https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/master/update.xml")
-                    ));
+                    var form = Application.OpenForms.Count > 0 ? Application.OpenForms[0] : null;
+                    if (form != null && !form.IsDisposed)
+                    {
+                        try
+                        {
+                            form.Invoke((Action)(() =>
+                                AutoUpdater.Start("https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/master/update.xml")
+                            ));
+                        }
+                        catch (ObjectDisposedException) { /* Form closed during startup, skip update check */ }
+                    }
                 });
             }
+
             MigrateToUnifiedSettings();
             Application.Run(isClientMode ? (Form)new frmClient() : (Form)new frmServer());
+
+            GC.KeepAlive(serverMutex);
         }
         private static void MigrateToUnifiedSettings()
         {
