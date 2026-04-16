@@ -20,7 +20,8 @@ Version 3 is a major update that introduces lots of new features and fixes. Here
   
 <br>
   
->[!warning] Migration Note
+> [!CAUTION]
+> **Migrating to V3**<br>
 When upgrading from v2 to v3, the application will attempt to automatically migrate your existing settings. To ensure that migration is successful, please make sure to have at least v2.0.0.2 installed in the default install location before upgrading. 
 
 ## Requirements 
