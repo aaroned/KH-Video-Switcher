@@ -297,7 +297,34 @@ namespace KH_Video_Switcher
 
         private void menuItemUpdate_Click(object sender, EventArgs e)
         {
+            AutoUpdaterDotNET.AutoUpdater.ReportErrors = false;
+            AutoUpdaterDotNET.AutoUpdater.CheckForUpdateEvent -= OnManualUpdateCheck;
+            AutoUpdaterDotNET.AutoUpdater.CheckForUpdateEvent += OnManualUpdateCheck;
             AutoUpdaterDotNET.AutoUpdater.Start("https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/master/update.xml");
+        }
+
+        private void OnManualUpdateCheck(AutoUpdaterDotNET.UpdateInfoEventArgs args)
+        {
+            AutoUpdaterDotNET.AutoUpdater.CheckForUpdateEvent -= OnManualUpdateCheck;
+
+            if (args.Error != null)
+            {
+                MessageBox.Show(
+                    "Unable to check for updates. Please check your internet connection and try again.",
+                    "Update Check Failed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!args.IsUpdateAvailable)
+            {
+                MessageBox.Show(
+                    "You're running the latest version!",
+                    "No Update Available",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
         }
 
         private void menuItemWiki_Click(object sender, EventArgs e)

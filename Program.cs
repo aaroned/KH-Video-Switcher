@@ -53,7 +53,7 @@ namespace KH_Video_Switcher
             AutoUpdater.ShowSkipButton = true;
             AutoUpdater.ShowRemindLaterButton = true;
             AutoUpdater.Mandatory = false;
-            AutoUpdater.ReportErrors = true;
+            AutoUpdater.ReportErrors = false;
             AutoUpdater.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath).ToBitmap();
             AutoUpdater.TopMost = true;
 
