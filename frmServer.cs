@@ -108,8 +108,8 @@ namespace KH_Video_Switcher
             {
                 btnOnlyM.Visible = false;
                 tableLayoutPanel1.ColumnStyles[1].Width = 0;
-                this.MinimumSize = new Size(334, 179);
-                this.Width = 334;
+                this.MinimumSize = new Size(310, 170);
+                this.Width = 310;
             }
 
             try
