@@ -1,18 +1,20 @@
 ***New Version ***
-    v0.0.0.0
+    v3.0.0.0
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-This is not a real changelog. This is
-for testing purposes only. Please see
-the GitHub Release section for updates
-at this time. Updating via this method
-will install v2.0.0.5
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+---
+This is a major release. See the Github Release page 
+for more details.
+---
 
-What's Fixed?
-- Zoom Workplace version 6.7.0 introduced a change
-that broke the Zoom button. This update restores 
-that functionality for version 6.7.0 and newer.
+Whats New?
+- New UI
+- Added Settings Menu for easy setup
+- Auto-Updater prompts for new versions
+- Improved reliability 
+- More!
 
-*NOTE: Please update Zoom Workplace to the latest version 
-before installing this update to ensure compatibility
+* NOTE: When upgrading from v2 to v3, the application 
+will attempt to automatically migrate your existing 
+settings. To ensure that migration is successful, please 
+make sure to have at least v2.0.0.2 installed in the 
+default install location before upgrading. 

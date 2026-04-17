@@ -2,9 +2,9 @@
 <!-- Update this file with each new release: version, url -->
 <item>
     <!-- Version number must match the assembly version exactly -->
-    <version>3.0.0.5</version>
+    <version>3.0.0.0</version>
     <!-- Direct download link to the installer on GitHub releases -->
-    <url>https://github.com/aaroned/KH-Video-Switcher/releases/download/2.0.0.5/KH.Switcher.2.0.0.5.exe</url>
+    <url>https://github.com/aaroned/KH-Video-Switcher/releases/download/3.0.0.0/KH.Switcher.3.0.0.0.exe</url>
     <changelog>https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/master/changelog.txt</changelog>
     <mandatory>false</mandatory>
 </item>

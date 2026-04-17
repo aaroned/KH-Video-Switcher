@@ -23,7 +23,7 @@ namespace JW_Library_Focuser
 
                 if (BringToFront(JwLibProcessName))
                 {
-                    if (log.IsInfoEnabled) log.Info("JW Library brough to front");
+                    if (log.IsInfoEnabled) log.Info("JW Library brought to front");
                 }
                 else
                 {

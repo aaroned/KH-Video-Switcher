@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;   
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace JW_Library_Focuser
@@ -11,14 +12,22 @@ namespace JW_Library_Focuser
         private const string ZoomLibProcessName = "Zoom";
         private const string MainWindowClassName = "ConfMultiTabContentWndClass";
         private const string ZoomLibCaptionPrefix = "Zoom Meeting";
+        private static string TargetMonitorDevice { get; set; } = "\\\\.\\DISPLAY2";
+        public static void SetTargetMonitor(string deviceName)
+        {
+            if (!string.IsNullOrEmpty(deviceName))
+                TargetMonitorDevice = deviceName;
+        }
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        // Specify the monitor index to bring Zoom to front. (0 = primary, 1 = secondary, ect.)
-        private static int TargetMonitorIndex = 1;
         public static void BringToFront()
         {
             if (log.IsInfoEnabled) log.Info("Attempting to bring Zoom to front");
+
+            // Log all available monitors for troubleshooting
+            LogAllMonitors();
+
             BringToFront(ZoomLibProcessName);
         }
 
@@ -46,14 +55,6 @@ namespace JW_Library_Focuser
                     return false;
                 }
 
-                // Get target monitor first
-                IntPtr targetMonitor = GetMonitorByIndex(TargetMonitorIndex);
-                if (targetMonitor == IntPtr.Zero)
-                {
-                    if (log.IsInfoEnabled) log.Info($"Cannot find monitor at index {TargetMonitorIndex}");
-                    return false;
-                }
-
                 bool found = false;
                 var prevWindow = IntPtr.Zero;
 
@@ -67,23 +68,25 @@ namespace JW_Library_Focuser
 
                     var sb = new StringBuilder(256);
                     LibHelperNativeMethods.GetWindowText(mainWindow, sb, 256);
-                    log.Info($"Found window: {sb}");
 
-                    if (sb.ToString().Equals(ZoomLibCaptionPrefix))
+                    if (sb.ToString().Contains(ZoomLibCaptionPrefix))
                     {
-                        // Check if this window is on the target monitor
+                        // Check which monitor this window is on
                         IntPtr windowMonitor = LibHelperNativeMethods.MonitorFromWindow(mainWindow, LibHelperNativeMethods.MONITOR_DEFAULTTONEAREST);
 
-                        if (windowMonitor == targetMonitor)
+                        if (IsTargetMonitor(windowMonitor))
                         {
                             LibHelperNativeMethods.ShowWindow(mainWindow, LibHelperNativeMethods.SW_MAXIMIZE);
                             LibHelperNativeMethods.SetForegroundWindow(mainWindow);
-                            if (log.IsInfoEnabled) log.Info($"{processName} window on monitor {TargetMonitorIndex} brought to foreground.");
+
+                            string monitorName = GetMonitorDeviceName(windowMonitor);
+                            if (log.IsInfoEnabled) log.Info($"{processName} window on monitor '{monitorName}' brought to foreground.");
                             found = true;
                         }
                         else
                         {
-                            if (log.IsInfoEnabled) log.Info($"Window found but on different monitor, continuing search...");
+                            string monitorName = GetMonitorDeviceName(windowMonitor);
+                            if (log.IsInfoEnabled) log.Info($"Window found on monitor '{monitorName}', but target is '{TargetMonitorDevice}'. Continuing search...");
                         }
                     }
 
@@ -92,7 +95,7 @@ namespace JW_Library_Focuser
 
                 if (!found)
                 {
-                    if (log.IsInfoEnabled) log.Info($"Cannot find window for process: {processName}");
+                    if (log.IsInfoEnabled) log.Info($"Cannot find window for process: {processName} on target monitor '{TargetMonitorDevice}'");
                 }
 
                 return found;
@@ -122,14 +125,6 @@ namespace JW_Library_Focuser
                     return false;
                 }
 
-                // Get target monitor first
-                IntPtr targetMonitor = GetMonitorByIndex(TargetMonitorIndex);
-                if (targetMonitor == IntPtr.Zero)
-                {
-                    if (log.IsInfoEnabled) log.Info($"Cannot find monitor at index {TargetMonitorIndex}");
-                    return false;
-                }
-
                 bool found = false;
                 var prevWindow = IntPtr.Zero;
 
@@ -144,20 +139,23 @@ namespace JW_Library_Focuser
                     var sb = new StringBuilder(256);
                     LibHelperNativeMethods.GetWindowText(mainWindow, sb, 256);
 
-                    if (sb.ToString().Equals(ZoomLibCaptionPrefix))
+                    if (sb.ToString().Contains(ZoomLibCaptionPrefix))
                     {
-                        // Check if this window is on the target monitor
+                        // Check which monitor this window is on
                         IntPtr windowMonitor = LibHelperNativeMethods.MonitorFromWindow(mainWindow, LibHelperNativeMethods.MONITOR_DEFAULTTONEAREST);
 
-                        if (windowMonitor == targetMonitor)
+                        if (IsTargetMonitor(windowMonitor))
                         {
                             LibHelperNativeMethods.ShowWindow(mainWindow, LibHelperNativeMethods.SW_MINIMIZE);
-                            if (log.IsInfoEnabled) log.Info($"{processName} window on monitor {TargetMonitorIndex} minimized.");
+
+                            string monitorName = GetMonitorDeviceName(windowMonitor);
+                            if (log.IsInfoEnabled) log.Info($"{processName} window on monitor '{monitorName}' minimized.");
                             found = true;
                         }
                         else
                         {
-                            if (log.IsInfoEnabled) log.Info($"Window found but on different monitor, continuing search...");
+                            string monitorName = GetMonitorDeviceName(windowMonitor);
+                            if (log.IsInfoEnabled) log.Info($"Window found on monitor '{monitorName}', but target is '{TargetMonitorDevice}'. Continuing search...");
                         }
                     }
 
@@ -166,7 +164,7 @@ namespace JW_Library_Focuser
 
                 if (!found)
                 {
-                    if (log.IsInfoEnabled) log.Info($"Cannot find window for process: {processName}");
+                    if (log.IsInfoEnabled) log.Info($"Cannot find window for process: {processName} on target monitor '{TargetMonitorDevice}'");
                 }
 
                 return found;
@@ -177,23 +175,112 @@ namespace JW_Library_Focuser
                 throw;
             }
         }
-        private static IntPtr GetMonitorByIndex(int index)
+
+        // Helper method to check if a monitor is the target monitor
+        private static bool IsTargetMonitor(IntPtr hMonitor)
         {
-            var monitors = new System.Collections.Generic.List<IntPtr>();
+            if (TargetMonitorDevice == "PRIMARY")
+            {
+                return IsPrimaryMonitor(hMonitor);
+            }
+
+            string deviceName = GetMonitorDeviceName(hMonitor);
+            return deviceName.Equals(TargetMonitorDevice, StringComparison.OrdinalIgnoreCase);
+        }
+
+        // Check if monitor is primary
+        private static bool IsPrimaryMonitor(IntPtr hMonitor)
+        {
+            LibHelperNativeMethods.MONITORINFOEX monitorInfo = new LibHelperNativeMethods.MONITORINFOEX();
+            monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
+
+            if (LibHelperNativeMethods.GetMonitorInfo(hMonitor, ref monitorInfo))
+            {
+                return (monitorInfo.dwFlags & LibHelperNativeMethods.MONITORINFOF_PRIMARY) != 0;
+            }
+
+            return false;
+        }
+
+        // Get monitor device name
+        private static string GetMonitorDeviceName(IntPtr hMonitor)
+        {
+            LibHelperNativeMethods.MONITORINFOEX monitorInfo = new LibHelperNativeMethods.MONITORINFOEX();
+            monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
+
+            if (LibHelperNativeMethods.GetMonitorInfo(hMonitor, ref monitorInfo))
+            {
+                return monitorInfo.szDevice;
+            }
+
+            return "Unknown";
+        }
+
+        // Log all available monitors for troubleshooting
+        private static void LogAllMonitors()
+        {
+            if (!log.IsInfoEnabled) return;
+
+            log.Info("=== Available Monitors ===");
+            int displayNumber = 1;
 
             LibHelperNativeMethods.EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero,
                 delegate (IntPtr hMonitor, IntPtr hdcMonitor, ref LibHelperNativeMethods.RECT lprcMonitor, IntPtr dwData)
                 {
-                    monitors.Add(hMonitor);
+                    LibHelperNativeMethods.MONITORINFOEX monitorInfo = new LibHelperNativeMethods.MONITORINFOEX();
+                    monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
+
+                    if (LibHelperNativeMethods.GetMonitorInfo(hMonitor, ref monitorInfo))
+                    {
+                        bool isPrimary = (monitorInfo.dwFlags & LibHelperNativeMethods.MONITORINFOF_PRIMARY) != 0;
+                        string deviceName = monitorInfo.szDevice;
+
+                        log.Info($"Display {displayNumber}: {deviceName} {(isPrimary ? "(PRIMARY)" : "")}");
+                        displayNumber++;
+                    }
+
                     return true;
                 }, IntPtr.Zero);
 
-            if (index >= 0 && index < monitors.Count)
+            log.Info($"Target monitor device: {TargetMonitorDevice}");
+            log.Info("==========================");
+        }
+        public static List<(string DeviceName, string FriendlyName)> GetAllMonitors()
+        {
+            var monitors = new List<(string, string)>();
+
+            uint deviceIndex = 0;
+            var displayDevice = new LibHelperNativeMethods.DISPLAY_DEVICE();
+            displayDevice.cb = Marshal.SizeOf(displayDevice);
+
+            while (LibHelperNativeMethods.EnumDisplayDevices(null, deviceIndex, ref displayDevice, 0))
             {
-                return monitors[index];
+                if ((displayDevice.StateFlags & LibHelperNativeMethods.DISPLAY_DEVICE_ACTIVE) != 0)
+                {
+                    string adapterName = displayDevice.DeviceName;
+
+                    string resolution = "";
+                    bool isPrimary = false;
+                    foreach (System.Windows.Forms.Screen screen in System.Windows.Forms.Screen.AllScreens)
+                    {
+                        if (screen.DeviceName.Equals(adapterName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            resolution = $"{screen.Bounds.Width}x{screen.Bounds.Height}";
+                            isPrimary = screen.Primary;
+                            break;
+                        }
+                    }
+
+                    string displayText = $"Display {monitors.Count + 1} - {resolution}{(isPrimary ? " (Primary)" : "")}";
+                    monitors.Add((adapterName, displayText));
+                }
+
+                deviceIndex++;
+                displayDevice = new LibHelperNativeMethods.DISPLAY_DEVICE();
+                displayDevice.cb = Marshal.SizeOf(displayDevice);
             }
 
-            return IntPtr.Zero;
+            return monitors;
         }
     }
 }
