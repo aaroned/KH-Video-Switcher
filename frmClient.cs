@@ -345,6 +345,10 @@ namespace KH_Video_Switcher
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
+            else
+            {
+                AutoUpdaterDotNET.AutoUpdater.ShowUpdateForm(args);
+            }
         }
 
         private void menuItemWiki_Click(object sender, EventArgs e)
