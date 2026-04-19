@@ -61,6 +61,15 @@ namespace KH_Video_Switcher
             AutoUpdaterDotNET.AutoUpdater.ReportErrors = false;
             AutoUpdaterDotNET.AutoUpdater.CheckForUpdateEvent -= OnManualUpdateCheck;
             AutoUpdaterDotNET.AutoUpdater.CheckForUpdateEvent += OnManualUpdateCheck;
+
+#if DEBUG
+            AutoUpdaterDotNET.AutoUpdater.InstalledVersion = new Version("1.0.0.0");
+            MessageBox.Show("DEBUG MODE: Update check will always show update available.\n\n" +
+                "Installed Version is set to 1.0.0.0.\n\n" +
+                "Click OK to continue.",
+                "Debug Mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
+#endif
+
             AutoUpdaterDotNET.AutoUpdater.Start("https://raw.githubusercontent.com/aaroned/KH-Video-Switcher/master/update.xml");
         }
 

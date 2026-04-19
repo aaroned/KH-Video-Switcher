@@ -57,6 +57,14 @@ namespace KH_Video_Switcher
             AutoUpdater.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath).ToBitmap();
             AutoUpdater.TopMost = true;
 
+#if DEBUG
+            AutoUpdaterDotNET.AutoUpdater.InstalledVersion = new Version("1.0.0.0");
+            MessageBox.Show("DEBUG MODE: Update check will always show update available.\n\n" +
+                "Installed Version is set to 1.0.0.0.\n\n" +
+                "Click OK to continue.",
+                "Debug Mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
+#endif
+
             // Check for updates on startup - only if first instance
             bool isFirstInstance = Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length == 1;
 
