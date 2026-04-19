@@ -113,6 +113,10 @@ namespace KH_Video_Switcher
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
+            else
+            {
+                AutoUpdaterDotNET.AutoUpdater.ShowUpdateForm(args);
+            }
         }
 
         private void checkBoxUpdateStart_CheckedChanged(object sender, EventArgs e)
