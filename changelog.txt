@@ -1,5 +1,13 @@
 *** New Version ***
-     v3.0.0.1 
+v3.0.0.2
+
+Fixed:
+- Additional fix for "Check for Update" button
+- Fix to mange migration of settings to new v3 version
+
+---
+
+v3.0.0.1 
 
 Fixed:
 - Small patch to "Check for Update" button in settings 
@@ -7,7 +15,7 @@ Fixed:
 ---
 
 *** Major Release ***
-     v3.0.0.0
+v3.0.0.0
 
 ---
 This is a major release. See the Github Release page 
