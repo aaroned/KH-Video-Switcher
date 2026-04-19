@@ -21,6 +21,15 @@ namespace KH_Video_Switcher
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // Upgrade settings from previous version if needed
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
+                log.Info("Settings upgraded from previous version");
+            }
+
             // Parse --client true/false argument
             bool isClientMode = false;
             var clientArgIndex = Array.IndexOf(args, "--client");
