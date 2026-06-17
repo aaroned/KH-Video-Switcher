@@ -54,7 +54,7 @@ namespace KH_Video_Switcher
             await Connect();
 
             var reconnectTimer = new System.Windows.Forms.Timer();
-            reconnectTimer.Interval = 5000;
+            reconnectTimer.Interval = 2000;
             reconnectTimer.Tick += async (s, args) =>
             {
                 if (hub == null)
@@ -138,6 +138,7 @@ namespace KH_Video_Switcher
                 {
                     // case Microsoft.AspNet.SignalR.Client.ConnectionState.Connecting:
                     case Microsoft.AspNet.SignalR.Client.ConnectionState.Reconnecting:
+                        hub = null;
                         clientStatusMenu.Image = Properties.Resources.off_status_8px;
                         clientStatusMenu.ToolTipText = "KH Switcher (Zoom) is attempting to connect...";
                         clientStatusMenu.ForeColor = Color.Firebrick;
@@ -306,6 +307,7 @@ namespace KH_Video_Switcher
                 else
                 {
                     await hub.Invoke("GetOBSStatus");
+                    await hub.Invoke("GetZoomStatus");
                     await GetScenes();
                 }
             }
