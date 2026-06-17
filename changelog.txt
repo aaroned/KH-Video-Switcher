@@ -1,12 +1,4 @@
 *** New Version ***
-v3.0.0.3
-
-Fixed:
-- Fixed client not auto-recovering after server or network disruption
-- Fixed manual refresh not restoring Zoom button state
-
----
-
 v3.0.0.2
 
 Fixed:
